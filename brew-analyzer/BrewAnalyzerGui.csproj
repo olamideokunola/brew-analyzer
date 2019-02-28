@@ -58,11 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="TrendAnalysisController.cs" />
+    <Compile Include="TrendAnalysisGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="TrendAnalysisGUI.Designer.cs">
+      <DependentUpon>TrendAnalysisGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +76,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TrendAnalysisGUI.resx">
+      <DependentUpon>TrendAnalysisGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -91,6 +95,20 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Analyzer\BrewAnalyzer.csproj">
+      <Project>{DD6FAA35-1137-44C7-8300-75AE465A4FC5}</Project>
+      <Name>BrewAnalyzer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BrewDataProvider\BrewDataProvider.csproj">
+      <Project>{6695537B-2BBF-45C2-87F5-87D0120F7B32}</Project>
+      <Name>BrewDataProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mvc\ObserverSubject.csproj">
+      <Project>{428D9436-5F41-4A33-9E44-4008E6FC4322}</Project>
+      <Name>ObserverSubject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

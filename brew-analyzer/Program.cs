@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Analyzer;
+using BrewDataProvider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,9 +15,26 @@ namespace brew_analyzer
         [STAThread]
         static void Main()
         {
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            // Create DataProvider
+            IDataProvider dataProvider = new BrewDataProvider.BrewDataProvider();
+
+            // Create Facade Controller for Trend Analysis
+            IAnalyzer analyzerFacade = new AnalysisFacade(dataProvider);
+            // Create MVC Controller for GUI
+            TrendAnalysisController trendAnalysisController = new TrendAnalysisController(analyzerFacade);
+
+            // Create GUI View
+            TrendAnalysisGUI trendAnalysisGUI = new TrendAnalysisGUI();
+            // Set MVC Controller
+            trendAnalysisGUI.SetController(trendAnalysisController);
+
+            Application.Run(trendAnalysisGUI);
+
+            
         }
     }
 }

@@ -3,7 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "brew-analyzer", "brew-analyzer\brew-analyzer.csproj", "{28CE454F-0A82-46DE-982E-1D6851AE3B06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewAnalyzerGui", "brew-analyzer\BrewAnalyzerGui.csproj", "{28CE454F-0A82-46DE-982E-1D6851AE3B06}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DD6FAA35-1137-44C7-8300-75AE465A4FC5} = {DD6FAA35-1137-44C7-8300-75AE465A4FC5}
+		{428D9436-5F41-4A33-9E44-4008E6FC4322} = {428D9436-5F41-4A33-9E44-4008E6FC4322}
+		{6695537B-2BBF-45C2-87F5-87D0120F7B32} = {6695537B-2BBF-45C2-87F5-87D0120F7B32}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewAnalyzer", "Analyzer\BrewAnalyzer.csproj", "{DD6FAA35-1137-44C7-8300-75AE465A4FC5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{428D9436-5F41-4A33-9E44-4008E6FC4322} = {428D9436-5F41-4A33-9E44-4008E6FC4322}
+		{6695537B-2BBF-45C2-87F5-87D0120F7B32} = {6695537B-2BBF-45C2-87F5-87D0120F7B32}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewDataProvider", "BrewDataProvider\BrewDataProvider.csproj", "{6695537B-2BBF-45C2-87F5-87D0120F7B32}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5FC07935-3177-4F07-A3DC-14A9D7D83BCC} = {5FC07935-3177-4F07-A3DC-14A9D7D83BCC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewingDataModel", "BrewingDataModel\BrewingDataModel.csproj", "{5FC07935-3177-4F07-A3DC-14A9D7D83BCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverSubject", "Mvc\ObserverSubject.csproj", "{428D9436-5F41-4A33-9E44-4008E6FC4322}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +35,22 @@ Global
 		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD6FAA35-1137-44C7-8300-75AE465A4FC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD6FAA35-1137-44C7-8300-75AE465A4FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD6FAA35-1137-44C7-8300-75AE465A4FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6FAA35-1137-44C7-8300-75AE465A4FC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6695537B-2BBF-45C2-87F5-87D0120F7B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6695537B-2BBF-45C2-87F5-87D0120F7B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6695537B-2BBF-45C2-87F5-87D0120F7B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6695537B-2BBF-45C2-87F5-87D0120F7B32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FC07935-3177-4F07-A3DC-14A9D7D83BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FC07935-3177-4F07-A3DC-14A9D7D83BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FC07935-3177-4F07-A3DC-14A9D7D83BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FC07935-3177-4F07-A3DC-14A9D7D83BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{428D9436-5F41-4A33-9E44-4008E6FC4322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{428D9436-5F41-4A33-9E44-4008E6FC4322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{428D9436-5F41-4A33-9E44-4008E6FC4322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{428D9436-5F41-4A33-9E44-4008E6FC4322}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

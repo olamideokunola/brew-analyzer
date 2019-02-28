@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6695537B-2BBF-45C2-87F5-87D0120F7B32}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BrewDataProvider</RootNamespace>
+    <AssemblyName>BrewDataProvider</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveBrewMonitor\ActiveBrewInProcess.cs" />
+    <Compile Include="ActiveBrewMonitor\BrewLoaderAndMaker.cs" />
+    <Compile Include="ActiveBrewMonitor\BrewMaker.cs" />
+    <Compile Include="BrewDataProvider.cs" />
+    <Compile Include="BrewMonitor\BrewInProcess.cs" />
+    <Compile Include="BrewMonitor\BrewLoader.cs" />
+    <Compile Include="BrewMonitor\FileParser.cs" />
+    <Compile Include="IDataProvider.cs" />
+    <Compile Include="BrewMonitor\IFileParser.cs" />
+    <Compile Include="BrewMonitor\ILiveBrewMonitor.cs" />
+    <Compile Include="BrewMonitor\LiveBrewMonitor.cs" />
+    <Compile Include="MyAppSettings\MyAppSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BrewMonitor\RequiredBrewParameters.cs" />
+    <Compile Include="BrewMonitor\RequiredFieldsChecker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BrewingDataModel\BrewingDataModel.csproj">
+      <Project>{5FC07935-3177-4F07-A3DC-14A9D7D83BCC}</Project>
+      <Name>BrewingDataModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
