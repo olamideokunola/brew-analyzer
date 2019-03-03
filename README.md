@@ -1,5 +1,4 @@
 # brew-analyzer
-Brew Analyzer
 
 Brew Analyzer is an app makes it possible to carryout investigations and analyses of brews that have been made in the past.
 
