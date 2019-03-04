@@ -1,3 +1,12 @@
+---
+name: User story
+about: Describe a user story
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 _**User story:**_
 As a ...,
 I want to **...**,
