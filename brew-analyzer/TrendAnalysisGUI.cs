@@ -29,7 +29,7 @@ namespace brew_analyzer
 
         private void TrendAnalysisGUI_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         internal void SetController(TrendAnalysisController trendAnalysisController)
@@ -43,9 +43,8 @@ namespace brew_analyzer
             if (subject.GetType().ToString() == "Analyzer.TrendAnalyzer")
             {
                 TrendAnalyzer trendAnalyzer = (TrendAnalyzer) subject;
-                string message = trendAnalyzer.DisplayNoBrewMessage();
-
-                DialogResult result = MessageBox.Show(message);
+                
+                DialogResult result = MessageBox.Show(trendAnalyzer.NumberOfBrewsMessage);
             }
         }
     }

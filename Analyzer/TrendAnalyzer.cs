@@ -11,6 +11,8 @@ namespace Analyzer
     {
         private IDataProvider dataProvider;
 
+        private string numberOfBrewsMessage;
+
         public TrendAnalyzer(IDataProvider dataProvider)
         {
             this.dataProvider = dataProvider;
@@ -28,26 +30,39 @@ namespace Analyzer
 
         public void StartTrendAnalysis()
         {
-            if (NoBrews())
-            {
-                // TODO
-            }
 
-            Notify();
+            if (NoBrews() || OneBrew())
+            {
+                Notify();
+            } else {
+                // TODO
+            }   
         }
 
         private bool NoBrews()
         {
             if (dataProvider.GetNumberOfBrews() == 0)
             {
+                numberOfBrewsMessage = "No brews!";
                 return true;
             }
             return false;
         }
 
-        public string DisplayNoBrewMessage()
+        private bool OneBrew()
         {
-            return "No Brews!";
+            if (dataProvider.GetNumberOfBrews() > 0)
+            {
+                numberOfBrewsMessage = "Only one brew!";
+                return true;
+            }
+            return false;
         }
+
+        public string NumberOfBrewsMessage
+        {
+            get { return numberOfBrewsMessage; }
+        }
+
     }
 }
