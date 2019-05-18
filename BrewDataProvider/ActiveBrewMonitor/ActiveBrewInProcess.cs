@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BrewDataProvider.BrewingModel
+namespace BrewDataProvider.ActiveBrewMonitor
 {
     class ActiveBrewInProcess
     {
@@ -14,16 +14,15 @@ namespace BrewDataProvider.BrewingModel
 
         public IBrew Brew { get => brew; }
 
-        public ActiveBrewInProcess(BrewInProcess brewInProcess)
+        public ActiveBrewInProcess(BrewInProcess brewInProcess, string startDate)
         {
             this.brewInProcess = brewInProcess;
-            CreateBrewFromBrewInProcess();
+            CreateBrewFromBrewInProcess(startDate);
         }
 
-        private void CreateBrewFromBrewInProcess()
-        {
-            //TODO
-            throw new NotImplementedException();
+        private void CreateBrewFromBrewInProcess(string startDate)
+        {         
+            brew = new BrewInProcessBrew(brewInProcess, startDate);
         }
     }
 }

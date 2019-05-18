@@ -44,10 +44,10 @@
     <Compile Include="BrewingModel\BrewIdleState.cs" />
     <Compile Include="BrewingModel\BrewInProcessState.cs" />
     <Compile Include="BrewingModel\BrewProxy.cs" />
+    <Compile Include="BrewingModel\ProcessEquipment.cs" />
     <Compile Include="ProcessEquipmentParameters\HoldingVesselProcessParameters.cs" />
     <Compile Include="BrewingModel\IBrew.cs" />
     <Compile Include="BrewingModel\IBrewState.cs" />
-    <Compile Include="BrewingModel\ProcessEquipment.cs" />
     <Compile Include="ProcessEquipmentParameters\MashCopperProcessParameters.cs" />
     <Compile Include="ProcessEquipmentParameters\MashFilterProcessParameters.cs" />
     <Compile Include="ProcessEquipmentParameters\MashTunProcessParameters.cs" />

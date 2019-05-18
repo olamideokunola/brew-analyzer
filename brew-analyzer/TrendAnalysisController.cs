@@ -17,9 +17,14 @@ namespace brew_analyzer
 
         }
 
-        public void StartTrendAnalysis()
+        //public void StartTrendAnalysis()
+        //{
+        //    analyzerFacade.StartTrendAnalysis();
+        //}
+
+        public void SetDates(DateTime startDate, DateTime endDate)
         {
-            analyzerFacade.StartTrendAnalysis();
+            analyzerFacade.SetDates(startDate, endDate);
         }
 
         public void DisplayNoBrewMessage(string message)

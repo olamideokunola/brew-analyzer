@@ -56,5 +56,29 @@ namespace Util
             }
             return dayInt.ToString();
         }
+
+        public string GetMonthNumber(string month)
+        {
+            int monthInt = (int)Enum.Parse(typeof(Month), month);
+            string monthStr = monthInt.ToString();
+
+            //if (monthInt < 10 )
+            //{
+            //    monthStr = 0 + monthStr;
+            //}
+            return GetTwoDigitNumber(monthStr);
+        }
+
+        public string GetTwoDigitNumber(string number)
+        {
+            int numberInt = int.Parse(number);
+            string numberStr = numberInt.ToString();
+
+            if (numberInt < 10)
+            {
+                numberStr = 0 + numberStr;
+            }
+            return numberStr;
+        }
     }
 }

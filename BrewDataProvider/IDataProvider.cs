@@ -9,7 +9,8 @@ namespace BrewDataProvider
     public interface IDataProvider
     {
         IBrew GetBrew(string brewId);
-        IList<IBrew> SelectBrews(DateTime startDate, DateTime endDate);
+        IList<IBrew> SelectBrewsOld(DateTime startDate, DateTime endDate);
         int GetNumberOfBrews();
+        int GetNumberOfBrews(DateTime startDate, DateTime endDate);
     }
 }

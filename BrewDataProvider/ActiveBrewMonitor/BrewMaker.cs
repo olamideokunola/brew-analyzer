@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BrewDataProvider.BrewingModel
+namespace BrewDataProvider.ActiveBrewMonitor
 {
     class BrewMaker
     {
@@ -13,9 +13,9 @@ namespace BrewDataProvider.BrewingModel
 
         }
 
-        public ActiveBrewInProcess CreateBrew(BrewInProcess brewInProcess)
+        public ActiveBrewInProcess CreateBrew(BrewInProcess brewInProcess, string startDate)
         {
-            ActiveBrewInProcess activeBrewInProcess = new ActiveBrewInProcess(brewInProcess);
+            ActiveBrewInProcess activeBrewInProcess = new ActiveBrewInProcess(brewInProcess, startDate);
             return activeBrewInProcess;
         }
     }

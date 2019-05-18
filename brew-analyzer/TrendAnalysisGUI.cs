@@ -24,7 +24,7 @@ namespace brew_analyzer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            trendAnalysisController.StartTrendAnalysis();
+            
         }
 
         private void TrendAnalysisGUI_Load(object sender, EventArgs e)
@@ -43,9 +43,24 @@ namespace brew_analyzer
             if (subject.GetType().ToString() == "Analyzer.TrendAnalyzer")
             {
                 TrendAnalyzer trendAnalyzer = (TrendAnalyzer) subject;
-                
-                DialogResult result = MessageBox.Show(trendAnalyzer.NumberOfBrewsMessage);
+
+                if (trendAnalyzer.NumberOfBrewsMessage.Length > 0)
+                {
+                    DialogResult result = MessageBox.Show(trendAnalyzer.NumberOfBrewsMessage);
+                }
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SetDate_Click(object sender, EventArgs e)
+        {
+            DateTime startDate = dtpStartDate.Value;
+            DateTime endDate = dtpEndDate.Value;
+            trendAnalysisController.SetDates(startDate, endDate);
         }
     }
 }

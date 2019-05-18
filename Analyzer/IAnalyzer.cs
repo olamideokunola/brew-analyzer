@@ -9,7 +9,7 @@ namespace Analyzer
     public interface IAnalyzer
     {
         void SetDates(DateTime startDate, DateTime endDate);
-        void StartTrendAnalysis();
+        //void StartTrendAnalysis();
         void RunAnalysis(string fileDestination);
         void AttachTrendAnalyzerObserver(IObserver observer);
     }

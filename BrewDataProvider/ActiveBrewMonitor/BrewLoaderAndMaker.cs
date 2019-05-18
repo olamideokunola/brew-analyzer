@@ -1,4 +1,4 @@
-﻿using BrewDataProvider.BrewingModel;
+﻿//using BrewDataProvider.BrewingModel;
 using BrewDataProvider.BrewMonitor;
 using BrewingModel;
 using System;
@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BrewDataProvider.ActiveBrewMonitor
 {
-    class BrewLoaderAndMaker : BrewLoader
+    public class BrewLoaderAndMaker : BrewLoader
     {
 
         private BrewMaker brewMaker;
@@ -18,9 +18,15 @@ namespace BrewDataProvider.ActiveBrewMonitor
             brewMaker = new BrewMaker();
         }
 
-        public IBrew CreateBrew(BrewInProcess brewInProcess)
+        public IBrew CreateBrew(string filePath, string brewNumber, string startDate)
         {
-            ActiveBrewInProcess activeBrewInProcess = brewMaker.CreateBrew(brewInProcess);
+            CreateBrewInProcess(filePath, brewNumber);
+            return CreateBrew(GetBrewInProcess(filePath, brewNumber), startDate);
+        }
+
+        private IBrew CreateBrew(BrewInProcess brewInProcess, string startDate)
+        {
+            ActiveBrewInProcess activeBrewInProcess = brewMaker.CreateBrew(brewInProcess, startDate);
             return activeBrewInProcess.Brew;
         }
 

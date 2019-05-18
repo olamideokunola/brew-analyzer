@@ -1,4 +1,5 @@
 ﻿using BrewDataProvider;
+using BrewingModel;
 using ObserverSubject;
 using System;
 using System.Collections.Generic;
@@ -25,39 +26,35 @@ namespace Analyzer
 
         public void SetDates(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
-        }
+            //IList<IBrew> brews = dataProvider.SelectBrews(startDate, endDate);
 
-        public void StartTrendAnalysis()
-        {
+            int NumberOfBrews = dataProvider.GetNumberOfBrews(startDate, endDate);
 
-            if (NoBrews() || OneBrew())
-            {
-                Notify();
-            } else {
-                // TODO
-            }   
-        }
+            numberOfBrewsMessage = "";
 
-        private bool NoBrews()
-        {
-            if (dataProvider.GetNumberOfBrews() == 0)
+            if (NumberOfBrews==0)   //brews.Count == 0)
             {
                 numberOfBrewsMessage = "No brews!";
-                return true;
             }
-            return false;
-        }
-
-        private bool OneBrew()
-        {
-            if (dataProvider.GetNumberOfBrews() > 0)
+            else if (NumberOfBrews == 1) //brews.Count == 1)
             {
                 numberOfBrewsMessage = "Only one brew!";
-                return true;
             }
-            return false;
+            Notify();
         }
+
+        //public void StartTrendAnalysis()
+        //{
+
+        //    if (NoBrews() || OneBrew())
+        //    {
+        //        Notify();
+        //    } else {
+        //        // TODO
+        //    }   
+        //}
+
+    
 
         public string NumberOfBrewsMessage
         {

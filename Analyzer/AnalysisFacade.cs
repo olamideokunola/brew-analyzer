@@ -27,10 +27,10 @@ namespace Analyzer
             trendAnalyzer.SetDates(startDate, endDate);
         }
 
-        public void StartTrendAnalysis()
-        {
-            trendAnalyzer.StartTrendAnalysis();
-        }
+        //public void StartTrendAnalysis()
+        //{
+        //    trendAnalyzer.StartTrendAnalysis();
+        //}
 
         public void AttachTrendAnalyzerObserver(IObserver observer)
         {

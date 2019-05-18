@@ -21,7 +21,7 @@ namespace Util
         private static string dateTimePattern = "dd.MM.yyyy HH:mm:ss";
         private static string datePattern = "dd.MM.yyyy";
 
-        private static string timeSpanPattern = "HH:mm:ss";
+        //private static string timeSpanPattern = "HH:mm:ss";
 
         //public static string DateTimePattern
         //{
