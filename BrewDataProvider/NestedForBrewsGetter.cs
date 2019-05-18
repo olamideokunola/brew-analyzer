@@ -13,8 +13,9 @@ namespace BrewDataProvider
 {
     class NestedForBrewsGetter : IBrewsGetter
     {
+        IList<string> brewsStringList = new List<string>();
         // Include startMonth for accuracy, method is not correct when startmonth and endmonth are same
-        public int GetBrewsInYears(IList<string> years, DateTime startDate, DateTime endDate)
+        public IList<string> GetBrewsInYears(IList<string> years, DateTime startDate, DateTime endDate)
         {
             MyAppSettings myAppSettings = MyAppSettings.GetInstance();
             string fileServerPath = myAppSettings.FileServerPath;
@@ -74,7 +75,13 @@ namespace BrewDataProvider
 
                                 if(folderDate.Date >= startDate.Date && folderDate.Date <= endDate.Date)
                                 {
-                                    NumberOfBrews = NumberOfBrews + dayFolder.GetFiles().Length;
+                                    // for each brew file in day, get file name and add to list
+                                    foreach (FileInfo brewFile in dayFolder.GetFiles())
+                                    {
+                                        brewsStringList.Add(brewFile.Name);
+                                    }
+                                        
+                                    //NumberOfBrews = NumberOfBrews + dayFolder.GetFiles().Length;
                                 }
 
                             }
@@ -83,7 +90,7 @@ namespace BrewDataProvider
                     }
                 }
             }
-            return NumberOfBrews;
+            return brewsStringList;
         }
 
         public IList<IBrew> GetBrewsInYearsOld(IList<string> years, int startYear, int endYear, int startDay, int endDay, BrewLoaderAndMaker brewLoaderAndMaker)

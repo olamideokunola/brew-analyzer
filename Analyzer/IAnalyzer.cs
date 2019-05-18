@@ -12,5 +12,6 @@ namespace Analyzer
         //void StartTrendAnalysis();
         void RunAnalysis(string fileDestination);
         void AttachTrendAnalyzerObserver(IObserver observer);
+        IList<string> BrewsStringList { get; }
     }
 }

@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrewsListAdapter.cs" />
+    <Compile Include="IBrewsListAdapter.cs" />
     <Compile Include="TrendAnalysisController.cs" />
     <Compile Include="TrendAnalysisGUI.cs">
       <SubType>Form</SubType>
@@ -67,6 +69,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrendAnalysisGuiModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

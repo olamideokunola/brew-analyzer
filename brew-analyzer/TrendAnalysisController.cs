@@ -10,11 +10,14 @@ namespace brew_analyzer
     class TrendAnalysisController
     {
         private IAnalyzer analyzerFacade;
+        private Subject guiModelSubject;
+        private TrendAnalysisGuiModel guiModel;
 
-        public TrendAnalysisController(IAnalyzer analyzerFacade)
+        public TrendAnalysisController(IAnalyzer analyzerFacade, TrendAnalysisGuiModel guiModel)
         {
             this.analyzerFacade = analyzerFacade;
-
+            this.guiModel = guiModel;
+            this.guiModelSubject = guiModel;
         }
 
         //public void StartTrendAnalysis()
@@ -22,9 +25,13 @@ namespace brew_analyzer
         //    analyzerFacade.StartTrendAnalysis();
         //}
 
+
+        // Use case methods
         public void SetDates(DateTime startDate, DateTime endDate)
         {
             analyzerFacade.SetDates(startDate, endDate);
+            IList<string> brewsStringList = analyzerFacade.BrewsStringList;
+            guiModel.BrewsList = brewsStringList;
         }
 
         public void DisplayNoBrewMessage(string message)
@@ -35,6 +42,19 @@ namespace brew_analyzer
         public void AttachTrendAnalyzerObserver(IObserver observer)
         {
             analyzerFacade.AttachTrendAnalyzerObserver(observer);
+            AttachGuiModelObserver(observer);
+        }
+
+
+        // GuiModel Mvc methods
+        public void AttachGuiModelObserver(IObserver observer)
+        {
+            guiModel.Attach(observer);
+        }
+
+        public void DetachGuiModelObserver(IObserver observer)
+        {
+            guiModel.Detach(observer);
         }
     }
 }

@@ -11,6 +11,9 @@ namespace Analyzer
     {
 
         private TrendAnalyzer trendAnalyzer;
+        private IList<string> brewsStringList = new List<string>();
+
+        public IList<string> BrewsStringList { get => brewsStringList; }
 
         public AnalysisFacade(IDataProvider dataProvider)
         {
@@ -25,6 +28,7 @@ namespace Analyzer
         public void SetDates(DateTime startDate, DateTime endDate)
         {
             trendAnalyzer.SetDates(startDate, endDate);
+            brewsStringList = trendAnalyzer.BrewsStringList;
         }
 
         //public void StartTrendAnalysis()

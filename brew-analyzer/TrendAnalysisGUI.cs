@@ -15,11 +15,12 @@ namespace brew_analyzer
     {
 
         private TrendAnalysisController trendAnalysisController;
+        TrendAnalyzer trendAnalyzer;
 
         public TrendAnalysisGUI()
         {
             InitializeComponent();
-            //SetController(trendAnalysisController);
+           // SetController(trendAnalysisController);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -42,13 +43,26 @@ namespace brew_analyzer
         {
             if (subject.GetType().ToString() == "Analyzer.TrendAnalyzer")
             {
-                TrendAnalyzer trendAnalyzer = (TrendAnalyzer) subject;
+                trendAnalyzer = (TrendAnalyzer) subject;
 
                 if (trendAnalyzer.NumberOfBrewsMessage.Length > 0)
                 {
                     DialogResult result = MessageBox.Show(trendAnalyzer.NumberOfBrewsMessage);
                 }
+
+
             }
+            
+            if (subject.GetType().ToString() == "brew_analyzer.TrendAnalysisGuiModel")
+            {
+                TrendAnalysisGuiModel trendAnalysisGuiModel = (TrendAnalysisGuiModel)subject;
+                UpdateBrewsListBox(trendAnalysisGuiModel.BrewsList);
+            }
+        }
+
+        private void UpdateBrewsListBox(IList<string> brewsList)
+        {
+            IBrewsListAdapter brewsListAdapter = new BrewsListAdapter(this.lstBoxBrews, brewsList);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -61,6 +75,26 @@ namespace brew_analyzer
             DateTime startDate = dtpStartDate.Value;
             DateTime endDate = dtpEndDate.Value;
             trendAnalysisController.SetDates(startDate, endDate);
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblBrewsListBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstBoxBrews_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -24,8 +24,11 @@ namespace brew_analyzer
 
             // Create Facade Controller for Trend Analysis
             IAnalyzer analyzerFacade = new AnalysisFacade(dataProvider);
+            // Create GuiModel
+            TrendAnalysisGuiModel trendAnalysisGuiModel = new TrendAnalysisGuiModel();
+
             // Create MVC Controller for GUI
-            TrendAnalysisController trendAnalysisController = new TrendAnalysisController(analyzerFacade);
+            TrendAnalysisController trendAnalysisController = new TrendAnalysisController(analyzerFacade, trendAnalysisGuiModel);
 
             // Create GUI View
             TrendAnalysisGUI trendAnalysisGUI = new TrendAnalysisGUI();

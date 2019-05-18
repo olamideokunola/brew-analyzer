@@ -20,6 +20,10 @@ namespace BrewDataProvider
         private BrewLoaderAndMaker brewLoaderAndMaker;
         private IFileParser fileParser;
 
+        private IList<string> brewsStringList = new List<string>();
+
+        public IList<string> BrewsStringList { get => brewsStringList; }
+
         public BrewDataProvider ()
         {
             fileParser = new FileParser();
@@ -101,10 +105,11 @@ namespace BrewDataProvider
             return brewsGetter.GetBrewsInYearsOld(years, startYear, endYear, startDay, endDay, brewLoaderAndMaker);
         }
 
-        private int GetBrewsInYears(IList<string> years, DateTime startDate, DateTime endDate)
+        private IList<string> GetBrewsInYears(IList<string> years, DateTime startDate, DateTime endDate)
         {
             IBrewsGetter brewsGetter = new NestedForBrewsGetter();
-            return brewsGetter.GetBrewsInYears(years, startDate, endDate);
+            brewsStringList = brewsGetter.GetBrewsInYears(years, startDate, endDate);
+            return brewsStringList;
             // return brewsGetter.GetBrewsInYears(years, startYear, endYear, startDay, endDay, brewLoaderAndMaker);
         }
 
@@ -183,7 +188,7 @@ namespace BrewDataProvider
             // Get brews from years
             int startDay = startDate.Day;
             int endDay = endDate.Day;
-            return GetBrewsInYears(years, startDate, endDate);
+            return GetBrewsInYears(years, startDate, endDate).Count;
         }
     }
 }

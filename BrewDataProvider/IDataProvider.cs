@@ -12,5 +12,6 @@ namespace BrewDataProvider
         IList<IBrew> SelectBrewsOld(DateTime startDate, DateTime endDate);
         int GetNumberOfBrews();
         int GetNumberOfBrews(DateTime startDate, DateTime endDate);
+        IList<string> BrewsStringList { get; }
     }
 }

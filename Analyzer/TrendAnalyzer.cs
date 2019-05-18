@@ -14,6 +14,10 @@ namespace Analyzer
 
         private string numberOfBrewsMessage;
 
+        private IList<string> brewsStringList = new List<string>();
+
+        public IList<string> BrewsStringList { get => brewsStringList; }
+
         public TrendAnalyzer(IDataProvider dataProvider)
         {
             this.dataProvider = dataProvider;
@@ -29,6 +33,7 @@ namespace Analyzer
             //IList<IBrew> brews = dataProvider.SelectBrews(startDate, endDate);
 
             int NumberOfBrews = dataProvider.GetNumberOfBrews(startDate, endDate);
+            brewsStringList = dataProvider.BrewsStringList;
 
             numberOfBrewsMessage = "";
 
@@ -61,5 +66,6 @@ namespace Analyzer
             get { return numberOfBrewsMessage; }
         }
 
+        
     }
 }

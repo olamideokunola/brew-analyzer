@@ -11,6 +11,6 @@ namespace BrewDataProvider
     {
         IList<IBrew> GetBrewsInYearsOld(IList<string> years, int startYear, int endYear, int startDay, int endDay, BrewLoaderAndMaker brewLoaderAndMaker);
         // int GetBrewsInYears(IList<string> years, int startYear, int endYear, int startDay, int endDay, BrewLoaderAndMaker brewLoaderAndMaker);
-        int GetBrewsInYears(IList<string> years, DateTime startDate, DateTime endDate);
+        IList<string> GetBrewsInYears(IList<string> years, DateTime startDate, DateTime endDate);
     }
 }
