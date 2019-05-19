@@ -38,5 +38,10 @@ namespace Tests
             Assert.Equals(names.Length, 1);
             //Assert.Pass();
         }
+
+        [Test]
+        public void TestBrewInProcessBrew()
+        {
+        }
     }
 }

@@ -59,5 +59,10 @@ namespace BrewDataProvider
         {
             throw new NotImplementedException();
         }
+
+        public IList<IBrew> GetBrewsInPeriod(IList<string> years, DateTime startDate, DateTime endDate, BrewLoaderAndMaker brewLoaderAndMaker)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

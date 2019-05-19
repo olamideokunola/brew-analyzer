@@ -37,11 +37,10 @@
             this.lblEndDate = new System.Windows.Forms.Label();
             this.lblSetDates = new System.Windows.Forms.Label();
             this.lstBoxBrews = new System.Windows.Forms.ListBox();
-            this.lblBrewsListBox = new System.Windows.Forms.Label();
-            this.lblSelectedBrew = new System.Windows.Forms.Label();
-            this.txtSelectedBrew = new System.Windows.Forms.TextBox();
             this.btnCreateTrendChart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // btnSetDates
@@ -101,43 +100,15 @@
             // lstBoxBrews
             // 
             this.lstBoxBrews.FormattingEnabled = true;
-            this.lstBoxBrews.Location = new System.Drawing.Point(100, 210);
+            this.lstBoxBrews.Location = new System.Drawing.Point(100, 194);
             this.lstBoxBrews.Name = "lstBoxBrews";
             this.lstBoxBrews.Size = new System.Drawing.Size(200, 95);
             this.lstBoxBrews.TabIndex = 6;
             this.lstBoxBrews.SelectedIndexChanged += new System.EventHandler(this.lstBoxBrews_SelectedIndexChanged);
             // 
-            // lblBrewsListBox
-            // 
-            this.lblBrewsListBox.AutoSize = true;
-            this.lblBrewsListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBrewsListBox.Location = new System.Drawing.Point(97, 191);
-            this.lblBrewsListBox.Name = "lblBrewsListBox";
-            this.lblBrewsListBox.Size = new System.Drawing.Size(101, 13);
-            this.lblBrewsListBox.TabIndex = 7;
-            this.lblBrewsListBox.Text = "Available Brews:";
-            this.lblBrewsListBox.Click += new System.EventHandler(this.lblBrewsListBox_Click);
-            // 
-            // lblSelectedBrew
-            // 
-            this.lblSelectedBrew.AutoSize = true;
-            this.lblSelectedBrew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelectedBrew.Location = new System.Drawing.Point(97, 318);
-            this.lblSelectedBrew.Name = "lblSelectedBrew";
-            this.lblSelectedBrew.Size = new System.Drawing.Size(93, 13);
-            this.lblSelectedBrew.TabIndex = 8;
-            this.lblSelectedBrew.Text = "Selected Brew:";
-            // 
-            // txtSelectedBrew
-            // 
-            this.txtSelectedBrew.Location = new System.Drawing.Point(100, 337);
-            this.txtSelectedBrew.Name = "txtSelectedBrew";
-            this.txtSelectedBrew.Size = new System.Drawing.Size(199, 20);
-            this.txtSelectedBrew.TabIndex = 9;
-            // 
             // btnCreateTrendChart
             // 
-            this.btnCreateTrendChart.Location = new System.Drawing.Point(100, 374);
+            this.btnCreateTrendChart.Location = new System.Drawing.Point(100, 370);
             this.btnCreateTrendChart.Name = "btnCreateTrendChart";
             this.btnCreateTrendChart.Size = new System.Drawing.Size(129, 23);
             this.btnCreateTrendChart.TabIndex = 10;
@@ -151,20 +122,33 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(27, 164);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(179, 20);
+            this.label1.Size = new System.Drawing.Size(140, 20);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Select Brew from list:";
+            this.label1.Text = "Available Brews:";
+            this.label1.Click += new System.EventHandler(this.label1_Click_2);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(27, 314);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(233, 20);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Set destination of trend file:";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
             // TrendAnalysisGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCreateTrendChart);
-            this.Controls.Add(this.txtSelectedBrew);
-            this.Controls.Add(this.lblSelectedBrew);
-            this.Controls.Add(this.lblBrewsListBox);
             this.Controls.Add(this.lstBoxBrews);
             this.Controls.Add(this.lblSetDates);
             this.Controls.Add(this.lblEndDate);
@@ -191,11 +175,10 @@
         private System.Windows.Forms.Label lblEndDate;
         private System.Windows.Forms.Label lblSetDates;
         private System.Windows.Forms.ListBox lstBoxBrews;
-        private System.Windows.Forms.Label lblBrewsListBox;
-        private System.Windows.Forms.Label lblSelectedBrew;
-        private System.Windows.Forms.TextBox txtSelectedBrew;
         private System.Windows.Forms.Button btnCreateTrendChart;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

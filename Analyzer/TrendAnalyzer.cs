@@ -15,17 +15,19 @@ namespace Analyzer
         private string numberOfBrewsMessage;
 
         private IList<string> brewsStringList = new List<string>();
-
         public IList<string> BrewsStringList { get => brewsStringList; }
+
+        private IList<IBrew> brewsList = new List<IBrew>();
+        public IList<IBrew> BrewsList { get => brewsList; }
 
         public TrendAnalyzer(IDataProvider dataProvider)
         {
             this.dataProvider = dataProvider;
         }
 
-        public void RunAnalysis(string fileDestination)
+        public void RunAnalysis(string fileDestination, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            brewsList = dataProvider.GetBrews(startDate, endDate);
         }
 
         public void SetDates(DateTime startDate, DateTime endDate)
@@ -58,8 +60,6 @@ namespace Analyzer
         //        // TODO
         //    }   
         //}
-
-    
 
         public string NumberOfBrewsMessage
         {

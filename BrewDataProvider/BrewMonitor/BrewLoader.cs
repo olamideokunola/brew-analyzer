@@ -22,6 +22,19 @@ namespace BrewDataProvider.BrewMonitor
 
         public IDictionary<string, BrewInProcess> BrewsInProcess { get => _brewsInProcess; }
 
+        public BrewInProcess GetBrewInProcess(string filePath, string brewNumber)
+        {
+            UpdateProcessFields(filePath, brewNumber);
+            BrewInProcess brewInProcess = new BrewInProcess(filePath, brewNumber, _processHeaderFields, _processSectionFields);         
+
+            if (!_brewsInProcess.ContainsKey(brewNumber))
+            {
+                _brewsInProcess.Add(brewNumber, brewInProcess);
+            }
+
+            return brewInProcess;
+        }
+
         public void CreateBrewInProcess(string filePath, string brewNumber)
         {
             UpdateProcessFields(filePath, brewNumber);
@@ -33,7 +46,7 @@ namespace BrewDataProvider.BrewMonitor
             }
         }
 
-        public BrewInProcess GetBrewInProcess(string filePath, string brewNumber)
+        public BrewInProcess GetBrewInProcessOld(string filePath, string brewNumber)
         {
             Console.WriteLine("In GetBrewInProcess!");
             BrewInProcess brewInProcess = null;

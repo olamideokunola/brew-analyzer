@@ -20,8 +20,13 @@ namespace BrewDataProvider.ActiveBrewMonitor
 
         public IBrew CreateBrew(string filePath, string brewNumber, string startDate)
         {
-            CreateBrewInProcess(filePath, brewNumber);
             return CreateBrew(GetBrewInProcess(filePath, brewNumber), startDate);
+        }
+
+        public IBrew CreateBrewOld(string filePath, string brewNumber, string startDate)
+        {
+            CreateBrewInProcess(filePath, brewNumber);
+            return CreateBrew(GetBrewInProcessOld(filePath, brewNumber), startDate);
         }
 
         private IBrew CreateBrew(BrewInProcess brewInProcess, string startDate)

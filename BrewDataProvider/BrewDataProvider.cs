@@ -32,15 +32,12 @@ namespace BrewDataProvider
 
         /// 
         /// Methods
-        /// 
-       
+        ///       
             
         //private List<string> GetMonths(DateTime startDate, DateTime endDate)
         //{
         //    return null; // TODO
         //}
-
-
 
         //private List<int> GetDays(string month)
         //{
@@ -79,9 +76,7 @@ namespace BrewDataProvider
         {
             throw new NotImplementedException();
         }
-
-
-
+               
         public IList<IBrew> SelectBrewsOld (DateTime startDate, DateTime endDate)
         {
             IList<IBrew> brews = new List<IBrew>();
@@ -105,12 +100,19 @@ namespace BrewDataProvider
             return brewsGetter.GetBrewsInYearsOld(years, startYear, endYear, startDay, endDay, brewLoaderAndMaker);
         }
 
-        private IList<string> GetBrewsInYears(IList<string> years, DateTime startDate, DateTime endDate)
+        private IList<string> GetBrewNamesInYears(IList<string> years, DateTime startDate, DateTime endDate)
         {
             IBrewsGetter brewsGetter = new NestedForBrewsGetter();
             brewsStringList = brewsGetter.GetBrewsInYears(years, startDate, endDate);
             return brewsStringList;
             // return brewsGetter.GetBrewsInYears(years, startYear, endYear, startDay, endDay, brewLoaderAndMaker);
+        }
+
+        private IList<IBrew> GetBrewsInPeriod(IList<string> years, DateTime startDate, DateTime endDate)
+        {
+            IBrewsGetter brewsGetter = new NestedForBrewsGetter();
+            return brewsGetter.GetBrewsInPeriod(years, startDate, endDate, brewLoaderAndMaker); 
+            // return brewsGetter.GetBrewsInPeriod(years, startYear, endYear, startDay, endDay, brewLoaderAndMaker);
         }
 
         private IList<string> GetYearList(int startYear, int endYear)
@@ -131,6 +133,24 @@ namespace BrewDataProvider
             }
 
             return years;
+        }
+
+        public IList<IBrew> GetBrews(DateTime startDate, DateTime endDate)
+        {
+            IList<IBrew> brews = new List<IBrew>();
+            IList<string> months = new List<string>();
+            IList<string> years = new List<string>();
+
+            int startYear = startDate.Year;
+            int endYear = endDate.Year;
+
+            // Get years in list
+            years = GetYearList(startYear, endYear);
+
+            // Get brews from years
+            int startDay = startDate.Day;
+            int endDay = endDate.Day;
+            return GetBrewsInPeriod(years, startDate, endDate);
         }
 
         //public IList<IBrew> SelectBrews(DateTime startDate, DateTime endDate)
@@ -188,7 +208,7 @@ namespace BrewDataProvider
             // Get brews from years
             int startDay = startDate.Day;
             int endDay = endDate.Day;
-            return GetBrewsInYears(years, startDate, endDate).Count;
+            return GetBrewNamesInYears(years, startDate, endDate).Count;
         }
     }
 }

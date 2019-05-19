@@ -34,6 +34,11 @@ namespace brew_analyzer
             guiModel.BrewsList = brewsStringList;
         }
 
+        public void RunAnalysis(string fileDestination, DateTime startDate, DateTime endDate)
+        {
+            analyzerFacade.RunAnalysis(fileDestination, startDate, endDate);
+        }
+
         public void DisplayNoBrewMessage(string message)
         {
 

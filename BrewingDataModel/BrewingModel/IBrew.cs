@@ -25,12 +25,12 @@ namespace BrewingModel
         string Day { get; }
 
         //Methods
-        void SetState(IBrewState newState);
+        //void SetState(IBrewState newState);
 
         //Getters for states
-        IBrewState IdleState { get; }
-        IBrewState InProcessState { get; }
-        IBrewState CompletedState { get; }
+        //IBrewState IdleState { get; }
+        //IBrewState InProcessState { get; }
+        //IBrewState CompletedState { get; }
 
         //Getters & Setters for Process Equipment Fields
         string GetProcessParameterValue(ProcessEquipment processEquipment, string parameterName);
@@ -44,12 +44,12 @@ namespace BrewingModel
         IDictionary<string, TimeSpan> GetWhirlpoolProcessDurations();
 
         //Event methods
-        void StartBrew(string startTime);
+        //void StartBrew(string startTime);
 
-        //Action Methods in state classes
-        void PrintCurrentState();
+        ////Action Methods in state classes
+        //void PrintCurrentState();
 
-        IBrewState CurrentState { get; set; }
+        //IBrewState CurrentState { get; set; }
 
         // Datasource methods
         // void Save();

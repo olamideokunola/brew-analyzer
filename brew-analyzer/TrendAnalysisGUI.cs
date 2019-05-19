@@ -89,10 +89,22 @@ namespace brew_analyzer
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-
+            DateTime startDate = dtpStartDate.Value;
+            DateTime endDate = dtpEndDate.Value;
+            trendAnalysisController.RunAnalysis("", startDate, endDate);
         }
 
         private void lstBoxBrews_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
 
         }

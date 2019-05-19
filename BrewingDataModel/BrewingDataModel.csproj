@@ -43,6 +43,7 @@
     <Compile Include="BrewingModel\BrewCompletedState.cs" />
     <Compile Include="BrewingModel\BrewIdleState.cs" />
     <Compile Include="BrewingModel\BrewInProcessState.cs" />
+    <Compile Include="BrewingModel\BrewPlain.cs" />
     <Compile Include="BrewingModel\BrewProxy.cs" />
     <Compile Include="BrewingModel\ProcessEquipment.cs" />
     <Compile Include="ProcessEquipmentParameters\HoldingVesselProcessParameters.cs" />

@@ -14,6 +14,79 @@ namespace BrewDataProvider
     class NestedForBrewsGetter : IBrewsGetter
     {
         IList<string> brewsStringList = new List<string>();
+
+        public IList<IBrew> GetBrewsInPeriod(IList<string> years, DateTime startDate, DateTime endDate, BrewLoaderAndMaker brewLoaderAndMaker)
+        {
+            MyAppSettings myAppSettings = MyAppSettings.GetInstance();
+            string fileServerPath = myAppSettings.FileServerPath;
+
+            //for each year folder, get brews
+            IList<IBrew> brews = new List<IBrew>();
+            foreach (string year in years)
+            {
+                if (FolderWorker.IsSubDirectory(fileServerPath, year))
+                {
+                    DirectoryInfo yearFolder = new DirectoryInfo(fileServerPath + myAppSettings.FolderSeparator + year);
+                    string[] months = Enum.GetNames(typeof(Month));
+
+                    // for each month in year folder, get brews
+                    foreach (DirectoryInfo monthFolder in yearFolder.GetDirectories())
+                    {
+                        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+                        // Convert monthName to title case
+                        string monthName = textInfo.ToTitleCase(monthFolder.Name).ToString();
+
+                        // If month folder exists then 
+                        if (months.Contains(monthName))
+                        {
+                            // for each day folder in month, get days
+                            foreach (DirectoryInfo dayFolder in monthFolder.GetDirectories())
+                            {
+                                int yearInt = int.Parse(year);
+                                Month currMonth = (Month)Enum.Parse(typeof(Month), monthName);
+                                int monthInt = (int)currMonth;
+                                int dayInt = int.Parse(dayFolder.Name);
+
+                                DateTime folderDate = new DateTime(yearInt, monthInt, dayInt);
+
+                                if (folderDate.Date >= startDate.Date && folderDate.Date <= endDate.Date)
+                                {
+                                    // for each brew file in day, get file name and add to list
+                                    foreach (FileInfo brewFile in dayFolder.GetFiles())
+                                    {
+                                        // string filePath = appSettings.FileServerPath + GetFilePath(brewId);
+                                        // filePath is for the folder containing the brewFile that is why it is renamed folderPath
+
+                                        string folderPath = dayFolder.FullName + myAppSettings.FolderSeparator;
+
+                                        string[] brewFileName = null;
+
+                                        // Split file name to remove extension
+                                        brewFileName = brewFile.Name.Split('.');
+                                        string brewNumber = brewFileName[0];
+
+                                        StringDateWorker stringDateWorker = StringDateWorker.GetInstance();
+                                        string monthId = stringDateWorker.GetMonthNumber(monthName);
+                                        string dayId = stringDateWorker.GetTwoDigitNumber(dayFolder.Name);
+
+                                        string startDateStr = dayId + '.' + monthId + '.' + year;
+
+                                        brews.Add(brewLoaderAndMaker.CreateBrew(folderPath, brewNumber, startDateStr));
+                                    }
+
+                                    //NumberOfBrews = NumberOfBrews + dayFolder.GetFiles().Length;
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+            return brews;
+        }
+
         // Include startMonth for accuracy, method is not correct when startmonth and endmonth are same
         public IList<string> GetBrewsInYears(IList<string> years, DateTime startDate, DateTime endDate)
         {

@@ -1,4 +1,5 @@
-﻿using ObserverSubject;
+﻿using BrewingModel;
+using ObserverSubject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,9 @@ namespace Analyzer
     {
         void SetDates(DateTime startDate, DateTime endDate);
         //void StartTrendAnalysis();
-        void RunAnalysis(string fileDestination);
+        void RunAnalysis(string fileDestination, DateTime startDate, DateTime endDate);
         void AttachTrendAnalyzerObserver(IObserver observer);
         IList<string> BrewsStringList { get; }
+        IList<IBrew> BrewsList { get; }
     }
 }
