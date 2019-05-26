@@ -1,4 +1,5 @@
 ﻿using Analyzer;
+using BrewingModel;
 using ObserverSubject;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,11 @@ namespace brew_analyzer
         public void RunAnalysis(string fileDestination, DateTime startDate, DateTime endDate)
         {
             analyzerFacade.RunAnalysis(fileDestination, startDate, endDate);
+        }
+
+        public IList<IBrew> GetBrews()
+        {
+            return analyzerFacade.BrewsList;
         }
 
         public void DisplayNoBrewMessage(string message)

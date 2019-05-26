@@ -55,8 +55,16 @@ namespace Util
         public static DateTime ConvertStringToDateTime(string dateStr)
         {
             DateTime convertedDate;
-            convertedDate = DateTime.ParseExact(dateStr, dateTimePattern, null);
 
+            if (dateStr.Length < 19)
+            {
+                convertedDate = DateTime.ParseExact(dateStr, datePattern, null);
+            }
+            else
+            { 
+                convertedDate = DateTime.ParseExact(dateStr, dateTimePattern, null);
+            }
+            
             return convertedDate;
         }
 

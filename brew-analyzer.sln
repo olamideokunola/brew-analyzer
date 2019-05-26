@@ -25,7 +25,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewingDataModel", "Brewing
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverSubject", "Mvc\ObserverSubject.csproj", "{428D9436-5F41-4A33-9E44-4008E6FC4322}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewAnalyzerTests", "BrewAnalyzerTests\BrewAnalyzerTests.csproj", "{0F02A39A-B32F-4158-A538-A6BA5312FB6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewAnalyzerTests", "BrewAnalyzerTests\BrewAnalyzerTests.csproj", "{0F02A39A-B32F-4158-A538-A6BA5312FB6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewReports", "BrewReports\BrewReports.csproj", "{116E0533-A7EB-41E8-BBC9-840686101B27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPPlus", "..\EPPlus-Version_3.0.0.2\EPPlus\EPPlus.csproj", "{7B288026-5502-4A39-BF41-77E086F3E4A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{0F02A39A-B32F-4158-A538-A6BA5312FB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F02A39A-B32F-4158-A538-A6BA5312FB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F02A39A-B32F-4158-A538-A6BA5312FB6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{116E0533-A7EB-41E8-BBC9-840686101B27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{116E0533-A7EB-41E8-BBC9-840686101B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{116E0533-A7EB-41E8-BBC9-840686101B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{116E0533-A7EB-41E8-BBC9-840686101B27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

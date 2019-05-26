@@ -52,6 +52,7 @@
     <Compile Include="ProcessEquipmentParameters\MashCopperProcessParameters.cs" />
     <Compile Include="ProcessEquipmentParameters\MashFilterProcessParameters.cs" />
     <Compile Include="ProcessEquipmentParameters\MashTunProcessParameters.cs" />
+    <Compile Include="ProcessEquipmentParameters\ProcessParameterMapper.cs" />
     <Compile Include="ProcessEquipmentParameters\WhirlpoolProcessParameters.cs" />
     <Compile Include="ProcessEquipmentParameters\WortCopperProcessParameters.cs" />
     <Compile Include="ProcessFields\MashCopperProcessDurations.cs" />

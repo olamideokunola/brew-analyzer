@@ -1,4 +1,8 @@
 ﻿using Analyzer;
+using BrewingModel;
+using BrewingModel.Datasources;
+using BrewingModel.Reports;
+using BrewingModel.Settings;
 using ObserverSubject;
 using System;
 using System.Collections.Generic;
@@ -92,6 +96,30 @@ namespace brew_analyzer
             DateTime startDate = dtpStartDate.Value;
             DateTime endDate = dtpEndDate.Value;
             trendAnalysisController.RunAnalysis("", startDate, endDate);
+
+            // Create Datasource for report
+            DatasourceHandler datasourceHandler = DatasourceHandler.GetInstance();
+
+            MyAppSettings appSettings = MyAppSettings.GetInstance();
+
+            string conStr = appSettings.ConnectionString;
+            string tempPath = appSettings.PeriodTemplateFilePath;
+
+            Datasource datasource = new XlDatasource(conStr, tempPath);
+            datasourceHandler.Datasource = datasource;
+
+
+            IList<IBrew> brews = trendAnalysisController.GetBrews();
+
+            foreach(IBrew brew in brews)
+            {
+                datasourceHandler.SaveBrew(brew);
+            }
+
+            // Generate Report
+            ReportGenerator reportGenerator = new XlReportGenerator();
+            //reportGenerator.LoadPeriods();
+            reportGenerator.CreateReport("2018", BrewingModel.Datasources.Month.May, "testingReport", "C:\\Users\\Olamide Okunola\\Documents");
         }
 
         private void lstBoxBrews_SelectedIndexChanged(object sender, EventArgs e)

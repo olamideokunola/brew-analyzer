@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BrewDataProvider.BrewMonitor;
+using BrewingDataModel.ProcessEquipmentParameters;
 using BrewingModel;
 using BrewingModel.BrewMonitor.LiveBrewCommandDispatchers;
 
@@ -25,34 +26,50 @@ namespace BrewDataProvider.ActiveBrewMonitor
                     string fieldValue = field.Value;
                     string fieldSection = section.Key;
 
+                    string processParameterName = "";
+
                     // Set Process Parameters field and values in Brew                                       
                     switch (fieldSection)
                     {
                         case "Weigh bin Mash Copper":
                         case "MASH COPPER":
-                            SetProcessParameterValue(ProcessEquipment.MashCopper, fieldName, fieldValue);
+                            processParameterName = GetProcessParameterName(fieldName + " - MASH COPPER");
+                            SetProcessParameterValue(ProcessEquipment.MashCopper, processParameterName, fieldValue);
                             break;
-                        case "WEIGHBIN MASHTUN":                  
+                        case "WEIGHBIN MASHTUN":                
                         case "MASH TUN":
-                            SetProcessParameterValue(ProcessEquipment.MashTun, fieldName, fieldValue);
+                            processParameterName = GetProcessParameterName(fieldName + " - MASH TUN");
+                            SetProcessParameterValue(ProcessEquipment.MashTun, processParameterName, fieldValue);
                             break;
                         case "MASH FILTER":
-                            SetProcessParameterValue(ProcessEquipment.MashFilter, fieldName, fieldValue);
+                            processParameterName = GetProcessParameterName(fieldName + " - MASH FILTER");
+                            SetProcessParameterValue(ProcessEquipment.MashFilter, processParameterName, fieldValue);
                             break;
-                        case "HOLDING VESSEL":                            
+                        case "HOLDING VESSEL":                   
                         case "HOLDING VESSEL TO WORT COPPER":
-                            SetProcessParameterValue(ProcessEquipment.HoldingVessel, fieldName, fieldValue);
+                            processParameterName = GetProcessParameterName(fieldName + " - MASH VESSEL");
+                            SetProcessParameterValue(ProcessEquipment.HoldingVessel, processParameterName, fieldValue);
                             break;
                         case "WORT COPPER":
-                            SetProcessParameterValue(ProcessEquipment.WortCopper, fieldName, fieldValue);
+                            processParameterName = GetProcessParameterName(fieldName + " - WORT COPPER");
+                            SetProcessParameterValue(ProcessEquipment.WortCopper, processParameterName, fieldValue);
                             break;
                         case "WHIRLPOOL":
-                            SetProcessParameterValue(ProcessEquipment.Whirlpool, fieldName, fieldValue);
+                            processParameterName = GetProcessParameterName(fieldName + " - WHIRLPOOL");
+                            SetProcessParameterValue(ProcessEquipment.Whirlpool, processParameterName, fieldValue);
                             break;
                     }
 
                 }
             }
+        }
+
+
+
+        private string GetProcessParameterName(string fieldName)
+        {
+            ProcessParameterMapper processParameterMapper = ProcessParameterMapper.GetInstance();
+            return processParameterMapper.GetProcessParameterName(fieldName);
         }
 
 
