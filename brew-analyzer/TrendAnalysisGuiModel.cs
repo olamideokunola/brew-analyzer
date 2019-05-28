@@ -6,10 +6,16 @@ using ObserverSubject;
 
 namespace brew_analyzer
 {
-    class TrendAnalysisGuiModel : Subject
+    public class TrendAnalysisGuiModel : Subject
     {
         IList<string> brewsList = new List<string>();
         string selectedBrew = "";
+        int numberOfBrews;
+
+        DateTime startDate;
+        DateTime endDate;
+        string fileDestination;
+
 
         // Constructor
         public TrendAnalysisGuiModel()
@@ -43,6 +49,18 @@ namespace brew_analyzer
             {
                 selectedBrew = value;
                 Notify();
+            }
+        }
+
+        public DateTime StartDate { get => startDate; set => startDate = value; }
+        public DateTime EndDate { get => endDate; set => endDate = value; }
+        public string FileDestination { get => fileDestination; set => fileDestination = value; }
+
+        public int NumberOfBrews
+        {
+            get
+            {
+                return brewsList.Count;
             }
         }
     }

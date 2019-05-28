@@ -8,7 +8,7 @@ using System.Text;
 
 namespace brew_analyzer
 {
-    class TrendAnalysisController
+    public class TrendAnalysisController
     {
         private IAnalyzer analyzerFacade;
         private Subject guiModelSubject;
@@ -28,16 +28,16 @@ namespace brew_analyzer
 
 
         // Use case methods
-        public void SetDates(DateTime startDate, DateTime endDate)
+        public void SetDates()
         {
-            analyzerFacade.SetDates(startDate, endDate);
+            analyzerFacade.SetDates(guiModel.StartDate, guiModel.EndDate);
             IList<string> brewsStringList = analyzerFacade.BrewsStringList;
             guiModel.BrewsList = brewsStringList;
         }
 
-        public void RunAnalysis(string fileDestination, DateTime startDate, DateTime endDate)
+        public void RunAnalysis()
         {
-            analyzerFacade.RunAnalysis(fileDestination, startDate, endDate);
+            analyzerFacade.RunAnalysis(guiModel.FileDestination, guiModel.StartDate, guiModel.EndDate);
         }
 
         public IList<IBrew> GetBrews()
@@ -66,6 +66,41 @@ namespace brew_analyzer
         public void DetachGuiModelObserver(IObserver observer)
         {
             guiModel.Detach(observer);
+        }
+
+        public void SetStartDate(DateTime startDate)
+        {
+            guiModel.StartDate = startDate;
+        }
+
+        public void SetEndDate(DateTime endDate)
+        {
+            guiModel.EndDate = endDate;
+
+        }
+        public DateTime GetStartDate()
+        {
+            return guiModel.StartDate;
+        }
+
+        public DateTime GetEndDate()
+        {
+            return guiModel.EndDate;
+        }
+
+        public void SetFileDestination(string fileDestination)
+        {
+            guiModel.FileDestination = fileDestination;
+        }
+
+        public string GetFileDestination()
+        {
+            return guiModel.FileDestination;
+        }
+
+        public int GetNumberOfBrews()
+        {
+            return guiModel.NumberOfBrews;
         }
     }
 }

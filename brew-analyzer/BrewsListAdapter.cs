@@ -19,6 +19,7 @@ namespace brew_analyzer
             this.brewsList = guiBrewsList;
 
             UpdateList(brewsList);
+
         }
 
         // IBrewsListAdapter interface implementation
