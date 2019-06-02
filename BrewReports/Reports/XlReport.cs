@@ -13,15 +13,15 @@ namespace BrewingModel.Reports
         ///  Represents a concreate class for an excel based report
         /// </summary>
 
-        ExcelPackage xlPackage;
-        ExcelWorksheet xlReportWorksheet;
+        internal ExcelPackage xlPackage;
+        internal ExcelWorksheet xlReportWorksheet;
         ExcelWorksheet xlBrewingFormWorksheet;
 
         private FileInfo template;
-        private FileInfo fileInfo;
+        internal FileInfo fileInfo;
         //private DirectoryInfo directoryInfo;
 
-        private const string reportWorksheet = "Brewing forms";
+        internal const string reportWorksheet = "Brewing forms";
         private const string brewingFormSheetName = "Brewing forms";
         MyAppSettings appSettings = MyAppSettings.GetInstance();
 
@@ -40,13 +40,16 @@ namespace BrewingModel.Reports
 
             templatePath = appSettings.ReportTemplateFilePath;
             this.template = new FileInfo(templatePath);
-
-            CreateReportWorkSheet();
-            CopyParametersFromPeriod();
         }
 
         public XlReport()
         {
+        }
+
+        public override void GenerateReport()
+        {
+            CreateReportWorkSheet();
+            CopyParametersFromPeriod();
         }
 
         private void CreateReportWorkSheet()
@@ -58,7 +61,7 @@ namespace BrewingModel.Reports
             }
         }
 
-        private void CopyParametersFromPeriod()
+        internal virtual void CopyParametersFromPeriod()
         {
             using (xlPackage = new ExcelPackage(fileInfo))
             {
@@ -79,7 +82,7 @@ namespace BrewingModel.Reports
             }
         }
 
-          
+
         public string ReportWorksheet
         {
             get

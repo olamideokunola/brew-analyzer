@@ -19,6 +19,7 @@ namespace BrewingModel.Reports
         }
 
         public abstract void CreateReport(string year, Month month, string reportName, string reportPath);
+        public abstract void CreateWeekReport(string year, Month month, string reportName, string reportPath, int weekIndex);
 
         public Period GetPeriod(string year, Month month)
         {

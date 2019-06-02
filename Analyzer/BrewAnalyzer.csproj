@@ -54,6 +54,10 @@
       <Project>{5FC07935-3177-4F07-A3DC-14A9D7D83BCC}</Project>
       <Name>BrewingDataModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BrewReports\BrewReports.csproj">
+      <Project>{116E0533-A7EB-41E8-BBC9-840686101B27}</Project>
+      <Name>BrewReports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mvc\ObserverSubject.csproj">
       <Project>{428D9436-5F41-4A33-9E44-4008E6FC4322}</Project>
       <Name>ObserverSubject</Name>

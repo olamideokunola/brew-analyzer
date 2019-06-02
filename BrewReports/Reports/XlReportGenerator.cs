@@ -19,6 +19,15 @@ namespace BrewingModel.Reports
         {
             XlPeriod period = (XlPeriod)GetPeriod(year, month);
             report = new XlReport(period, reportName, reportPath);
+            report.GenerateReport();
         }
+
+        public override void CreateWeekReport(string year, Month month, string reportName, string reportPath, int weekIndex)
+        {
+            XlPeriod period = (XlPeriod)GetPeriod(year, month);
+            report = new XlWeekReport(period, reportName, reportPath, weekIndex);
+            report.GenerateReport();
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrewingModel.Datasources;
+using System;
 namespace Util
 {
     public class StringDateWorker
@@ -62,10 +63,14 @@ namespace Util
             int monthInt = (int)Enum.Parse(typeof(Month), month);
             string monthStr = monthInt.ToString();
 
-            //if (monthInt < 10 )
-            //{
-            //    monthStr = 0 + monthStr;
-            //}
+            return GetTwoDigitNumber(monthStr);
+        }
+
+        public string GetTwoDigitMonthNumber(string month)
+        {
+            int monthInt = (int)Enum.Parse(typeof(Month), month);
+            string monthStr = monthInt.ToString();
+
             return GetTwoDigitNumber(monthStr);
         }
 

@@ -236,11 +236,11 @@ namespace BrewingModel.Datasources
                 if (period != null)
                 {
                     // If existing period contains the key then update brew in period
-                    if (period.Brews.ContainsKey(brew.BrewNumber))
+                    if (period.Brews.ContainsKey(brew.BrewNumber + " - " + brew.StartDate))
                     {
                         period.UpdateBrew(brew);
                     }
-                    // If existing period contains the key then create brew in period
+                    // If existing period does not contains the key then create brew in period
                     else
                     {
                         period.AddBrew(brew);
@@ -261,6 +261,17 @@ namespace BrewingModel.Datasources
             {
                 return "Failure";
             }
+        }
+
+        public override IList<IDictionary<string, string>> GetExistingBrewNumbers(Month month, int year)
+        {
+            XlPeriod period = (XlPeriod)GetPeriod(year.ToString(), month);
+            if (period != null)
+            {
+                return period.GetExistingBrewNumbers();
+            }
+
+            return null;
         }
     }
 

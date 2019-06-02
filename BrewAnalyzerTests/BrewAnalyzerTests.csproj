@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BrewDataProvider\BrewDataProvider.csproj" />
     <ProjectReference Include="..\BrewingDataModel\BrewingDataModel.csproj" />
+    <ProjectReference Include="..\BrewReports\BrewReports.csproj" />
   </ItemGroup>
 
 </Project>

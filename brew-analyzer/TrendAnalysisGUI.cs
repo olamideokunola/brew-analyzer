@@ -24,10 +24,12 @@ namespace brew_analyzer
 
         Form dataLoadingProgressForm;
 
+        
+
         public TrendAnalysisGUI()
         {
             InitializeComponent();
-           
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,12 +41,24 @@ namespace brew_analyzer
         {
             SetupYearsCombo();
             SetupMonthsCombo();
+            SetupFolderBrowserDialog();
+        }
+
+        private void SetupFolderBrowserDialog()
+        {
+            folderBrowserDialog1.Description = "Select the destination folder for the trend report.";
+            //folderBrowserDialog1.RootFolder = Environment.SpecialFolder.Personal;
         }
 
         private void SetupMonthsCombo()
         {
-            IList<string> monthsList = new List<string>();
+            //IList<string> monthsList = new List<string>();
             cmbMonth.DataSource = Enum.GetNames(typeof(Month));
+        }
+
+        private void SetupWeeksInMonthCombo()
+        {
+            cmbWeeksInMonth.DataSource = trendAnalysisController.GetWeeksInMonth();
         }
 
         private void SetupYearsCombo()
@@ -117,67 +131,37 @@ namespace brew_analyzer
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            //DateTime startDate = dtpStartDate.Value;
-            //DateTime endDate = dtpEndDate.Value;
-
             CreateDateRangeForMonth();
-            trendAnalysisController.SetFileDestination("");
 
-            trendAnalysisController.RunAnalysis();
+            // Show the FolderBrowserDialog.
+            DialogResult result = folderBrowserDialog1.ShowDialog();
 
-            // Create Datasource for report
-            DatasourceHandler datasourceHandler = DatasourceHandler.GetInstance();
+            if (result == DialogResult.OK)
+            {
+                string fileDestination = folderBrowserDialog1.SelectedPath;
+                trendAnalysisController.SetFileDestination(fileDestination);
 
-            MyAppSettings appSettings = MyAppSettings.GetInstance();
+                string reportName = txtReportName.Text;
+                trendAnalysisController.SetReportName(reportName);
 
-            string conStr = appSettings.ConnectionString;
-            string tempPath = appSettings.PeriodTemplateFilePath;
+                trendAnalysisController.LoadBrews();
 
-            Datasource datasource = new XlDatasource(conStr, tempPath);
-            datasourceHandler.Datasource = datasource;
+                // if number of brews to add is more than zero start data download
+                int numberOfBrewsToAdd = trendAnalysisController.GetNumberOfBrewsToAdd();
 
+                // Open download form to download brews from brews file server
+                if (numberOfBrewsToAdd > 0)
+                {
+                    dataLoadingProgressForm = new DataLoadProgressForm(trendAnalysisController);
+                    dataLoadingProgressForm.ShowDialog();
+                }
 
-            //IList<IBrew> brews = trendAnalysisController.GetBrews();
+                // Generate Report
+                trendAnalysisController.GenerateWeekReport();
 
-            ////Setup progress bar
-            //// Display the ProgressBar control.
-            //progressBar1.Visible = true;
-            //// Set Minimum to 1 to represent the first file being copied.
-            //progressBar1.Minimum = 1;
-            //// Set Maximum to the total number of files to copy.
-            //progressBar1.Maximum = brews.Count ;
-            //// Set the initial value of the ProgressBar.
-            //progressBar1.Value = 1;
-            //// Set the Step property to a value of 1 to represent each file being copied.
-            //progressBar1.Step = 1;
-
-            dataLoadingProgressForm = new DataLoadProgressForm(trendAnalysisController);
-            dataLoadingProgressForm.ShowDialog();
-
-            //if (backgroundWorker1.IsBusy != true)
-            //{
-            //    // Start the asynchronous operation.
-            //    backgroundWorker1.RunWorkerAsync();
-            //}
-
-
-            //foreach (IBrew brew in brews)
-            //{
-            //    datasourceHandler.SaveBrew(brew);
-
-            //    //progressBar1.Step = 20;
-            //    progressBar1.PerformStep();
-
-            //}
-
-            // Generate Report
-            ReportGenerator reportGenerator = new XlReportGenerator();
-            //reportGenerator.LoadPeriods();
-
-            string yearStr = cmbYear.SelectedItem.ToString();
-            Month month = (Month)Enum.Parse(typeof(Month), cmbMonth.SelectedItem.ToString());
-
-            reportGenerator.CreateReport(yearStr, month, "testingReport", "C:\\Users\\Olamide Okunola\\Documents");
+                // Report Completion
+                // MessageBox messageBox
+            }            
         }
 
         private void lstBoxBrews_SelectedIndexChanged(object sender, EventArgs e)
@@ -207,13 +191,20 @@ namespace brew_analyzer
         {
             int year = (int) cmbYear.SelectedItem;
             Month month = (Month) Enum.Parse(typeof(Month), cmbMonth.SelectedItem.ToString());
-            int monthInt = (int)month + 1;
+            int monthInt = (int)month;
             int endDay = DateTime.DaysInMonth(year, monthInt);
 
             trendAnalysisController.SetStartDate(new DateTime(year, monthInt, 1));
             trendAnalysisController.SetEndDate(new DateTime(year, monthInt, endDay));
 
+            trendAnalysisController.SetMonth(month);
+            trendAnalysisController.SetYear(year);
+
             trendAnalysisController.SetDates();
+
+            trendAnalysisController.SetWeeksInMonth(month, year);
+
+            SetupWeeksInMonthCombo();
         }
 
         private void cmbMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -224,8 +215,16 @@ namespace brew_analyzer
             }
         }
 
+        private void cmbWeeksInMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string weekString = cmbWeeksInMonth.SelectedItem.ToString();
+            int week = int.Parse(weekString.Substring(5, weekString.Length - 5));
+            trendAnalysisController.SetSelectedWeek(week);
+        }
 
+        private void label5_Click(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

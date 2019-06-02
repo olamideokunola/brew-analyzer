@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using BrewDataProvider.ActiveBrewMonitor;
 using BrewingModel;
+using BrewingModel.Datasources;
 using BrewingModel.Settings;
 using Util;
 

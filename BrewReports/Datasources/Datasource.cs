@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using BrewingModel;
+using Util;
 //using OfficeOpenXml;
 
 namespace BrewingModel.Datasources
@@ -52,5 +53,32 @@ namespace BrewingModel.Datasources
 
         public abstract string SaveBrew(IBrew brew);
 
+        public abstract IList<IDictionary<string, string>> GetExistingBrewNumbers(Month month, int year);
+
+        internal IList<IBrew> RemoveExistingBrews(IList<IBrew> brews, IList<IDictionary<string, string>> existingBrewNumbers)
+        {
+            IList<IBrew> brewsToRemove = new List<IBrew>();
+
+            // Get indexes of the existing brews in preparation for removal
+            foreach(IBrew brew in brews)
+            {
+                foreach(IDictionary<string, string> existingBrewNumber in existingBrewNumbers )
+                {
+                    if (existingBrewNumber["BrewNumber"] == brew.BrewNumber && existingBrewNumber["StartDate"] == brew.StartDate)
+                    {
+                        brewsToRemove.Add(brew);
+                    }
+                }
+                
+            }
+
+            // Remove all brews with collected indexes
+            foreach (IBrew brewToRemove in brewsToRemove)
+            {
+                brews.Remove(brewToRemove);
+            }
+
+            return brews;
+        }
     }
 }

@@ -72,5 +72,15 @@ namespace BrewingModel.Datasources
         {
             _datasource.LoadPeriods();
         }
+
+        public IList<IDictionary<string, string>> GetExistingBrewNumbers(Month month, int year)
+        {
+            return _datasource.GetExistingBrewNumbers(month, year);
+        }
+
+        public IList<IBrew> RemoveExistingBrews(IList<IBrew> brews, IList<IDictionary<string, string>> existingBrewNumbers)
+        {
+            return _datasource.RemoveExistingBrews(brews, existingBrewNumbers);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Analyzer;
 using BrewingModel;
+using BrewingModel.Datasources;
 using ObserverSubject;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace brew_analyzer
 
         public void RunAnalysis()
         {
-            analyzerFacade.RunAnalysis(guiModel.FileDestination, guiModel.StartDate, guiModel.EndDate);
+            
         }
 
         public IList<IBrew> GetBrews()
@@ -101,6 +102,77 @@ namespace brew_analyzer
         public int GetNumberOfBrews()
         {
             return guiModel.NumberOfBrews;
+        }
+
+        internal void SetMonth(Month month)
+        {
+            guiModel.Month = month;
+        }
+
+        internal Month GetMonth()
+        {
+            return guiModel.Month;
+        }
+
+        internal void SetYear(int year)
+        {
+            guiModel.Year = year;
+        }
+
+        internal int GetYear()
+        {
+            return guiModel.Year;
+        }
+
+        internal void SetWeeksInMonth(Month month, int year)
+        {
+            guiModel.SetWeeksInMonth(month, year);
+        }
+
+        internal IList<string> GetWeeksInMonth()
+        {
+            return guiModel.WeeksInMonth;
+        }
+
+        internal void SetSelectedWeek(int week)
+        {
+            guiModel.SelectedWeek = week;
+        }
+
+        internal int GetSelectedWeek()
+        {
+            return guiModel.SelectedWeek;
+        }
+
+        internal int GetNumberOfBrewsToAdd()
+        {
+            return analyzerFacade.GetNumberOfBrewsToAdd(guiModel.Month, guiModel.Year);
+        }
+
+        internal void GenerateWeekReport()
+        {
+            Month month = guiModel.Month;
+            int year = guiModel.Year;
+            string reportName = guiModel.ReportName;
+            string fileDestination = guiModel.FileDestination;
+            int week = guiModel.SelectedWeek;
+
+            analyzerFacade.GenerateWeekReport(month, year, reportName, fileDestination, week);
+        }
+
+        internal void SetReportName(string reportName)
+        {
+            guiModel.ReportName = reportName;
+        }
+
+        internal void LoadBrews()
+        {
+            analyzerFacade.LoadBrews(guiModel.StartDate, guiModel.EndDate);
+        }
+
+        internal string GetReportName()
+        {
+            return guiModel.ReportName;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using BrewDataProvider;
 using BrewingModel;
+using BrewingModel.Datasources;
+using BrewingModel.Reports;
 using ObserverSubject;
 using System;
 using System.Collections.Generic;
@@ -25,7 +27,7 @@ namespace Analyzer
             this.dataProvider = dataProvider;
         }
 
-        public void RunAnalysis(string fileDestination, DateTime startDate, DateTime endDate)
+        public void LoadBrews(DateTime startDate, DateTime endDate)
         {
             brewsList = dataProvider.GetBrews(startDate, endDate);
         }
@@ -66,6 +68,15 @@ namespace Analyzer
             get { return numberOfBrewsMessage; }
         }
 
-        
+        internal void GenerateWeekReport(Month month, int year, string reportName, string fileDestination, int week)
+        {
+            // Generate Report
+            ReportGenerator reportGenerator = new XlReportGenerator();
+
+            string yearStr = year.ToString();
+
+            reportGenerator.CreateWeekReport(yearStr, month, reportName, fileDestination, week);
+
+        }
     }
 }

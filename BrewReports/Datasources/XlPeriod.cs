@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using BrewingModel.Settings;
 using OfficeOpenXml;
@@ -90,13 +91,34 @@ namespace BrewingModel.Datasources
 
         public override void AddBrew(IBrew brew)
         {
-            if (!_brews.ContainsKey(brew.BrewNumber)) // && !BrewInWorkSheet(brew))
-            {
-                int newColumnIndex = _brews.Count + 3;
+            if (!_brews.ContainsKey(brew.BrewNumber + " - " + brew.StartDate)) // && !BrewInWorkSheet(brew))
+            {             
+                int nextColumnIndex = GetNextColumnIndex();
+                //int newColumnIndex = _brews.Count + 3;
                 //AddBrewToWorkSheet(brew, newColumnIndex);
-                workSheetSaver.AddBrewToWorkSheet(brew, newColumnIndex);
-                _brews.Add(brew.BrewNumber, brew);
+                workSheetSaver.AddBrewToWorkSheet(brew, nextColumnIndex);
+                _brews.Add(brew.BrewNumber + " - " + brew.StartDate, brew);
             }
+        }
+
+        private int GetNextColumnIndex()
+        {
+            int nextColumn = 3;
+            using (xlPackage = new ExcelPackage(fileInfo))
+            {
+                ExcelWorksheet brewingFormWorksheet = xlPackage.Workbook.Worksheets[brewingFormSheetName];
+
+                for (int column = 3; column <= brewingFormWorksheet.Dimension.End.Column; column++)
+
+                {
+                    if (brewingFormWorksheet.Cells[4, column].Value != null)
+                    {
+                        nextColumn++;
+                    }
+                }
+            }
+
+            return nextColumn;
         }
 
         public override IBrew GetBrew(string brewNumber)
@@ -225,6 +247,32 @@ namespace BrewingModel.Datasources
                 SaveWorkSheet(xlPackage);
 
             }
+        }
+
+        internal IList<IDictionary<string, string>> GetExistingBrewNumbers()
+        {
+            IList<IDictionary<string, string>> existingBrewNumbers = new List<IDictionary<string, string>>();
+
+            IDictionary<string, string> brewNumberAndDate = new Dictionary<string, string>();
+
+            using (xlPackage = new ExcelPackage(fileInfo))
+            {
+                ExcelWorksheet brewingFormWorksheet = xlPackage.Workbook.Worksheets[brewingFormSheetName];
+
+                for (int column = 3; column <= brewingFormWorksheet.Dimension.End.Column; column++)
+
+                {
+                    if (brewingFormWorksheet.Cells[4, column].Value != null)
+                    {
+                        brewNumberAndDate = new Dictionary<string, string>();
+                        brewNumberAndDate.Add("BrewNumber", brewingFormWorksheet.Cells[4, column].Value.ToString());
+                        brewNumberAndDate.Add("StartDate", brewingFormWorksheet.Cells[2, column].Value.ToString());
+                        existingBrewNumbers.Add(brewNumberAndDate);
+                    }
+                }
+            }
+
+            return existingBrewNumbers;
         }
 
         private void SetBrewingFormData(IBrew brew, int newColumnIndex)
@@ -518,14 +566,14 @@ namespace BrewingModel.Datasources
                         column = columnIndex;
                         if (xlRawDataWorksheet.Cells[4, column].Value != null)
                         {
-                            brewDate = DateHelper.ConvertDateToString(xlRawDataWorksheet.Cells[2, column].GetValue<DateTime>());
+                            brewDate = xlRawDataWorksheet.Cells[2, column].Value.ToString();
                             brandname = xlRawDataWorksheet.Cells[3, column].Value.ToString();
                             brewNumber = xlRawDataWorksheet.Cells[4, column].Value.ToString();
                             startTime = xlRawDataWorksheet.Cells[5, column].Value.ToString();
 
                             IBrew brew = new BrewProxy(brewDate, brandname, brewNumber);
 
-                            _brews.Add(brew.BrewNumber, brew);
+                            _brews.Add(brew.BrewNumber + " - " + brew.StartDate, brew);
                         }
 
                     }

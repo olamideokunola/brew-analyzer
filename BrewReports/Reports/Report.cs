@@ -4,7 +4,7 @@ using BrewingModel.Datasources;
 
 namespace BrewingModel.Reports
 {
-    public class Report
+    public abstract class Report
     /// Abstract Class representing a report
     /// wraps a period
     {
@@ -61,5 +61,8 @@ namespace BrewingModel.Reports
             }
         }
 
+        public abstract void GenerateReport();
+
+      
     }
 }

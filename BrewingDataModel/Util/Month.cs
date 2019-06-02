@@ -1,9 +1,8 @@
 ﻿using System;
-namespace Util
+namespace BrewingModel.Datasources
 {
     public enum Month
     {
-
         January = 1,
         February,
         March,
@@ -17,5 +16,4 @@ namespace Util
         November,
         December
     }
-  
 }

@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="Datasources\Datasource.cs" />
     <Compile Include="Datasources\DatasourceHandler.cs" />
-    <Compile Include="Datasources\Month.cs" />
     <Compile Include="Datasources\Period.cs" />
     <Compile Include="Datasources\WorkSheetSaver.cs" />
     <Compile Include="Datasources\XlDatasource.cs" />
@@ -51,6 +50,7 @@
     <Compile Include="Reports\ReportGenerator.cs" />
     <Compile Include="Reports\XlReport.cs" />
     <Compile Include="Reports\XlReportGenerator.cs" />
+    <Compile Include="Reports\XlWeekReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\EPPlus-Version_3.0.0.2\EPPlus\EPPlus.csproj">
