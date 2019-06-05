@@ -74,6 +74,11 @@ namespace Analyzer
             trendAnalyzer.GenerateWeekReport(month, year, reportName, destination, week);
         }
 
+        public void GenerateWeekChartReport(Month month, int year, string reportName, string destination, int week)
+        {
+            trendAnalyzer.GenerateWeekChartReport(month, year, week);
+        }
+
         public void SetDates(DateTime startDate, DateTime endDate)
         {
             trendAnalyzer.SetDates(startDate, endDate);
@@ -83,6 +88,31 @@ namespace Analyzer
         public void AttachTrendAnalyzerObserver(IObserver observer)
         {
             trendAnalyzer.Attach(observer);
+        }
+
+        public IDictionary<string, TimeSpan> GetFirstTrendChartSeriesDataSet()
+        {
+            return trendAnalyzer.GetFirstTrendChartSeriesDataSet();
+        }
+
+        public string GetFirstTrendChartProcessParameter()
+        {
+            return trendAnalyzer.GetFirstTrendChartProcessParameter();
+        }
+
+        public IDictionary<string, IDictionary<string, TimeSpan>> GetNextTrendChartSeriesDataSet()
+        {
+            return trendAnalyzer.GetNextTrendChartSeriesDataSet();
+        }
+
+        public IDictionary<string, IDictionary<string, TimeSpan>> GetPreviousTrendChartSeriesDataSet()
+        {
+            return trendAnalyzer.GetPreviousTrendChartSeriesDataSet();
+        }
+
+        public void GenerateWeekChartReport(Month month, int year, int week)
+        {
+            trendAnalyzer.GenerateWeekChartReport(month, year, week);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Util;
+using System.IO;
 
 namespace BrewingModel.Reports
 { 
@@ -16,7 +17,7 @@ namespace BrewingModel.Reports
         DateTime endDate;
         int weekIndex;
 
-        internal ExcelWorksheet xlPeriodWorksheet;
+        //internal ExcelWorksheet xlPeriodWorksheet;
 
         public XlWeekReport(XlPeriod period, string reportName, string reportPath, int weekIndex) : base(period, reportName, reportPath)
         {
@@ -60,24 +61,12 @@ namespace BrewingModel.Reports
                     }
                     
                 }
-
-                xlPackage.Save();
+                Byte[] bin = xlPackage.GetAsByteArray();
+                File.WriteAllBytes(fileInfo.FullName, bin);
+                //xlPackage.SaveAs(fileInfo);
             }
         }
 
-        //private int GetEndColumn(int weekIndex)
-        //{
-        //    //GetColumnWithHigherClosestDate;
-        //    endDate = GetEndDate(period, weekIndex);
-        //    return GetColumnWithHigherClosestDate(endDate);
-        //}
-
-        //private int GetStartColumn(int weekIndexe)
-        //{
-        //    //GetColumnWithHigherClosestDate;
-        //    startDate = GetStartDate(period, weekIndex);
-        //    return GetColumnWithHigherClosestDate(startDate);
-        //}
 
         private string GetEndDate(Period period, int weekIndex)
         {

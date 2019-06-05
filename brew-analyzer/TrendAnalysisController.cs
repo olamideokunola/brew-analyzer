@@ -79,10 +79,31 @@ namespace brew_analyzer
             guiModel.EndDate = endDate;
 
         }
+
+        internal IDictionary<string, TimeSpan> GetFirstTrendChartSeriesDataSet()
+        {
+            return analyzerFacade.GetFirstTrendChartSeriesDataSet();
+        }
+
+        internal string GetFirstTrendChartProcessParameter()
+        {
+            return analyzerFacade.GetFirstTrendChartProcessParameter();
+        }
+
+        internal IDictionary<string, IDictionary<string, TimeSpan>> GetNextTrendChartSeriesDataSet()
+        {
+            return analyzerFacade.GetNextTrendChartSeriesDataSet();
+        }
+
+        internal IDictionary<string, IDictionary<string, TimeSpan>> GetPreviousTrendChartSeriesDataSet()
+        {
+            return analyzerFacade.GetPreviousTrendChartSeriesDataSet();
+        }
+
         public DateTime GetStartDate()
         {
             return guiModel.StartDate;
-        }
+        }        
 
         public DateTime GetEndDate()
         {
@@ -158,6 +179,15 @@ namespace brew_analyzer
             int week = guiModel.SelectedWeek;
 
             analyzerFacade.GenerateWeekReport(month, year, reportName, fileDestination, week);
+        }
+
+        internal void GenerateWeekChartReport()
+        {
+            Month month = guiModel.Month;
+            int year = guiModel.Year;
+            int week = guiModel.SelectedWeek;
+
+            analyzerFacade.GenerateWeekChartReport(month, year, week);
         }
 
         internal void SetReportName(string reportName)

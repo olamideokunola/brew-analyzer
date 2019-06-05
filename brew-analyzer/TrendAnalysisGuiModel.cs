@@ -91,7 +91,5 @@ namespace brew_analyzer
                 weeksInMonth.Add("Week " + weekNumber.ToString());
             }
         }
-
-
     }
 }

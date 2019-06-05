@@ -20,5 +20,10 @@ namespace Analyzer
 
         int GetNumberOfBrewsToAdd(Month month, int year);
         void GenerateWeekReport(Month month, int year, string reportName, string fileDestination, int week);
+        void GenerateWeekChartReport(Month month, int year, int week);
+        IDictionary<string, TimeSpan> GetFirstTrendChartSeriesDataSet();
+        string GetFirstTrendChartProcessParameter();
+        IDictionary<string, IDictionary<string, TimeSpan>> GetNextTrendChartSeriesDataSet();
+        IDictionary<string, IDictionary<string, TimeSpan>> GetPreviousTrendChartSeriesDataSet();
     }
 }

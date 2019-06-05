@@ -50,11 +50,14 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.txtReportName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.trendChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label6 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.trendChart)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSetDates
             // 
-            this.btnSetDates.Location = new System.Drawing.Point(388, 122);
+            this.btnSetDates.Location = new System.Drawing.Point(847, 491);
             this.btnSetDates.Name = "btnSetDates";
             this.btnSetDates.Size = new System.Drawing.Size(129, 23);
             this.btnSetDates.TabIndex = 0;
@@ -65,7 +68,7 @@
             // 
             // dtpStartDate
             // 
-            this.dtpStartDate.Location = new System.Drawing.Point(388, 61);
+            this.dtpStartDate.Location = new System.Drawing.Point(847, 430);
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(200, 20);
             this.dtpStartDate.TabIndex = 1;
@@ -73,7 +76,7 @@
             // 
             // dtpEndDate
             // 
-            this.dtpEndDate.Location = new System.Drawing.Point(388, 90);
+            this.dtpEndDate.Location = new System.Drawing.Point(847, 459);
             this.dtpEndDate.Name = "dtpEndDate";
             this.dtpEndDate.Size = new System.Drawing.Size(200, 20);
             this.dtpEndDate.TabIndex = 2;
@@ -82,7 +85,7 @@
             // lblStartDate
             // 
             this.lblStartDate.AutoSize = true;
-            this.lblStartDate.Location = new System.Drawing.Point(315, 65);
+            this.lblStartDate.Location = new System.Drawing.Point(774, 434);
             this.lblStartDate.Name = "lblStartDate";
             this.lblStartDate.Size = new System.Drawing.Size(55, 13);
             this.lblStartDate.TabIndex = 3;
@@ -93,7 +96,7 @@
             // lblEndDate
             // 
             this.lblEndDate.AutoSize = true;
-            this.lblEndDate.Location = new System.Drawing.Point(315, 93);
+            this.lblEndDate.Location = new System.Drawing.Point(774, 462);
             this.lblEndDate.Name = "lblEndDate";
             this.lblEndDate.Size = new System.Drawing.Size(52, 13);
             this.lblEndDate.TabIndex = 4;
@@ -122,7 +125,7 @@
             // 
             // btnCreateTrendChart
             // 
-            this.btnCreateTrendChart.Location = new System.Drawing.Point(124, 459);
+            this.btnCreateTrendChart.Location = new System.Drawing.Point(124, 479);
             this.btnCreateTrendChart.Name = "btnCreateTrendChart";
             this.btnCreateTrendChart.Size = new System.Drawing.Size(129, 23);
             this.btnCreateTrendChart.TabIndex = 10;
@@ -191,7 +194,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(22, 386);
+            this.label3.Location = new System.Drawing.Point(22, 406);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(303, 20);
             this.label3.TabIndex = 17;
@@ -217,7 +220,7 @@
             // 
             // txtReportName
             // 
-            this.txtReportName.Location = new System.Drawing.Point(124, 423);
+            this.txtReportName.Location = new System.Drawing.Point(124, 443);
             this.txtReportName.Name = "txtReportName";
             this.txtReportName.Size = new System.Drawing.Size(200, 20);
             this.txtReportName.TabIndex = 20;
@@ -225,18 +228,40 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(35, 426);
+            this.label5.Location = new System.Drawing.Point(35, 446);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 13);
             this.label5.TabIndex = 21;
             this.label5.Text = "Report Name:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
+            // trendChart
+            // 
+
+            this.trendChart.Location = new System.Drawing.Point(347, 65);
+            this.trendChart.Name = "trendChart";
+            this.trendChart.Size = new System.Drawing.Size(720, 457);
+            this.trendChart.TabIndex = 22;
+            this.trendChart.Text = "chart1";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(343, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(152, 20);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "View Trend Chart:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
             // TrendAnalysisGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 547);
+            this.ClientSize = new System.Drawing.Size(1089, 547);
+            this.Controls.Add(this.label6);
+            //this.Controls.Add(this.trendChart);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtReportName);
             this.Controls.Add(this.label4);
@@ -259,6 +284,7 @@
             this.Name = "TrendAnalysisGUI";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.TrendAnalysisGUI_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.trendChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,6 +314,8 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox txtReportName;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataVisualization.Charting.Chart trendChart;
+        private System.Windows.Forms.Label label6;
     }
 }
 

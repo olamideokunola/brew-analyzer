@@ -12,7 +12,7 @@ namespace BrewingModel
 {
     public class BrewingProcessHandler //: Subject
     {
-        private string _filePath;
+        private string _filePath = "";
         private Brew _brew = new Brew();
         private IDictionary<string, Brew> _brews = new Dictionary<string, Brew>();
 

@@ -418,6 +418,7 @@ namespace BrewingModel.Datasources
 
                 FileInfo file = fileInfo;
                 File.WriteAllBytes(file.FullName, bin);
+                //xlPackage.SaveAs(file);
                 //return file.FullName;
             }
         }

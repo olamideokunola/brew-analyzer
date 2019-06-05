@@ -3,13 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewAnalyzerGui", "brew-analyzer\BrewAnalyzerGui.csproj", "{28CE454F-0A82-46DE-982E-1D6851AE3B06}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DD6FAA35-1137-44C7-8300-75AE465A4FC5} = {DD6FAA35-1137-44C7-8300-75AE465A4FC5}
-		{428D9436-5F41-4A33-9E44-4008E6FC4322} = {428D9436-5F41-4A33-9E44-4008E6FC4322}
-		{6695537B-2BBF-45C2-87F5-87D0120F7B32} = {6695537B-2BBF-45C2-87F5-87D0120F7B32}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewAnalyzer", "Analyzer\BrewAnalyzer.csproj", "{DD6FAA35-1137-44C7-8300-75AE465A4FC5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{428D9436-5F41-4A33-9E44-4008E6FC4322} = {428D9436-5F41-4A33-9E44-4008E6FC4322}
@@ -29,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewAnalyzerTests", "BrewAn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewReports", "BrewReports\BrewReports.csproj", "{116E0533-A7EB-41E8-BBC9-840686101B27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPPlus", "..\EPPlus-Version_3.0.0.2\EPPlus\EPPlus.csproj", "{7B288026-5502-4A39-BF41-77E086F3E4A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewAnalyzerGui", "brew-analyzer\BrewAnalyzerGui.csproj", "{28CE454F-0A82-46DE-982E-1D6851AE3B06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +30,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD6FAA35-1137-44C7-8300-75AE465A4FC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD6FAA35-1137-44C7-8300-75AE465A4FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD6FAA35-1137-44C7-8300-75AE465A4FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -65,10 +54,10 @@ Global
 		{116E0533-A7EB-41E8-BBC9-840686101B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{116E0533-A7EB-41E8-BBC9-840686101B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{116E0533-A7EB-41E8-BBC9-840686101B27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28CE454F-0A82-46DE-982E-1D6851AE3B06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

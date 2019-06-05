@@ -78,7 +78,13 @@ namespace BrewingModel.Reports
                     }
                 }
 
-                xlPackage.Save();
+                //write the file to the disk
+
+
+                Byte[] bin = xlPackage.GetAsByteArray();
+                File.WriteAllBytes(fileInfo.FullName, bin);
+
+                //xlPackage.SaveAs(fileInfo);
             }
         }
 
