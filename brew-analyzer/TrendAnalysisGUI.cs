@@ -163,7 +163,7 @@ namespace brew_analyzer
             // 
             // btnCreateTrendChart
             // 
-            this.btnCreateTrendChart.Location = new System.Drawing.Point(124, 479);
+            this.btnCreateTrendChart.Location = new System.Drawing.Point(124, 510);
             this.btnCreateTrendChart.Name = "btnCreateTrendChart";
             this.btnCreateTrendChart.Size = new System.Drawing.Size(129, 23);
             this.btnCreateTrendChart.TabIndex = 10;
@@ -301,7 +301,7 @@ namespace brew_analyzer
             //this.butNextDataSet.TabIndex = ;
             this.butNextDataSet.Text = ">";
             this.butNextDataSet.UseVisualStyleBackColor = true;
-            this.butNextDataSet.Click += new System.EventHandler(this.butNextDataSet_Click);
+            //this.butNextDataSet.Click += new System.EventHandler(this.butNextDataSet_Click);
             //
             // butPreviousDataSet
             //
@@ -315,7 +315,7 @@ namespace brew_analyzer
             //
             // btnExportToExcel
             // 
-            this.btnExportToExcel.Location = new System.Drawing.Point(124, 450);
+            this.btnExportToExcel.Location = new System.Drawing.Point(124, 480);
             this.btnExportToExcel.Name = "btnExportToExcel";
             this.btnExportToExcel.Size = new System.Drawing.Size(129, 23);
             this.btnExportToExcel.TabIndex = 10;
@@ -332,8 +332,8 @@ namespace brew_analyzer
             this.Controls.Add(this.butNextDataSet);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.trendChart);
-            //this.Controls.Add(this.label5);
-            //this.Controls.Add(this.txtReportName);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtReportName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbWeeksInMonth);
             this.Controls.Add(this.label3);
