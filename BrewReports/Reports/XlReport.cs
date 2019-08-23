@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using BrewingModel.Datasources;
 using BrewingModel.Settings;
@@ -68,11 +69,12 @@ namespace BrewingModel.Reports
                 XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
                 xlReportWorksheet = xlPackage.Workbook.Worksheets[reportWorksheet];
 
+
+
                 //for (int column = 1; column <= xlPeriod.XlBrewingFormWorksheet.Dimension.Columns; column++)
                 for (int column = 1; column <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Column; column++)
-
-                    {
-                        for (int row = 1; row <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Row; row++)
+                {
+                    for (int row = 1; row <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Row; row++)
                     {
                         xlReportWorksheet.Cells[row, column].Value = xlPeriod.XlBrewingFormWorksheet.Cells[row, column].Value;
                     }
@@ -80,11 +82,26 @@ namespace BrewingModel.Reports
 
                 //write the file to the disk
 
+                SaveWorkSheet(xlPackage);
 
+                // Byte[] bin = xlPackage.GetAsByteArray();
+                // File.WriteAllBytes(fileInfo.FullName, bin);
+
+            }
+        }
+
+
+
+        private void SaveWorkSheet(ExcelPackage xlPackage)
+        {
+            using (xlPackage)
+            {
                 Byte[] bin = xlPackage.GetAsByteArray();
-                File.WriteAllBytes(fileInfo.FullName, bin);
 
-                //xlPackage.SaveAs(fileInfo);
+                FileInfo file = fileInfo;
+                File.WriteAllBytes(file.FullName, bin);
+                //xlPackage.SaveAs(file);
+                //return file.FullName;
             }
         }
 

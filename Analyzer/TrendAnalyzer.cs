@@ -73,6 +73,7 @@ namespace Analyzer
 
         internal void GenerateWeekReport(Month month, int year, string reportName, string fileDestination, int week)
         {
+
             // Generate Report
             reportGenerator = new XlReportGenerator();
 
@@ -80,11 +81,11 @@ namespace Analyzer
 
             reportGenerator.CreateWeekReport(yearStr, month, reportName, fileDestination, week);
 
-
         }
 
         internal void GenerateWeekChartReport(Month month, int year, int week)
         {
+
             // Generate Report
             reportGenerator = new MsChartReportGenerator();
 

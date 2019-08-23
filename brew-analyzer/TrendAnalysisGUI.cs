@@ -45,6 +45,7 @@ namespace brew_analyzer
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button butNextDataSet;
         private System.Windows.Forms.Button butPreviousDataSet;
+        private System.Windows.Forms.Button btnExportToExcel;
 
 
         // MVC Elements
@@ -86,6 +87,7 @@ namespace brew_analyzer
             this.label6 = new System.Windows.Forms.Label();
             this.butNextDataSet = new System.Windows.Forms.Button();
             this.butPreviousDataSet = new System.Windows.Forms.Button();
+            this.btnExportToExcel = new System.Windows.Forms.Button();
         }
 
         private void SetupComponents()
@@ -234,7 +236,7 @@ namespace brew_analyzer
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(303, 20);
             this.label3.TabIndex = 17;
-            this.label3.Text = "Create trend chart:";
+            this.label3.Text = "Export to Excel / Create trend chart:";
             // 
             // cmbWeeksInMonth
             // 
@@ -310,6 +312,16 @@ namespace brew_analyzer
             this.butPreviousDataSet.Text = "<";
             this.butPreviousDataSet.UseVisualStyleBackColor = true;
             this.butPreviousDataSet.Click += new System.EventHandler(this.butPreviousDataSet_Click);
+            //
+            // btnExportToExcel
+            // 
+            this.btnExportToExcel.Location = new System.Drawing.Point(124, 450);
+            this.btnExportToExcel.Name = "btnExportToExcel";
+            this.btnExportToExcel.Size = new System.Drawing.Size(129, 23);
+            this.btnExportToExcel.TabIndex = 10;
+            this.btnExportToExcel.Text = "Export to Excel";
+            this.btnExportToExcel.UseVisualStyleBackColor = true;
+            this.btnExportToExcel.Click += new System.EventHandler(this.btnExportToExcel_Click);
             // 
             // TrendAnalysisGUI
             // 
@@ -339,6 +351,7 @@ namespace brew_analyzer
             this.Controls.Add(this.dtpEndDate);
             this.Controls.Add(this.dtpStartDate);
             this.Controls.Add(this.btnSetDates);
+            this.Controls.Add(this.btnExportToExcel);
             this.Name = "TrendAnalysisGUI";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.TrendAnalysisGUI_Load);
@@ -347,6 +360,7 @@ namespace brew_analyzer
             this.PerformLayout();
         }
 
+        
 
         private void TrendAnalysisGUI_Load(object sender, EventArgs e)
         {
@@ -621,6 +635,22 @@ namespace brew_analyzer
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            LoadBrewsWithDateRange();            
+
+            // Generate Report
+            // trendAnalysisController.GenerateWeekReport();
+            trendAnalysisController.GenerateWeekChartReport();
+
+            // Report Completion
+            MessageBox.Show("Report Generation Complete.", "Report message");
+
+            // Update TrendChart
+            UpdateTrendChartWithFirstSeriesDataSet();
+            //}            
+        }
+
+        private void LoadBrewsWithDateRange()
+        {
             CreateDateRangeForMonth();
 
             // Show the FolderBrowserDialog.
@@ -645,17 +675,30 @@ namespace brew_analyzer
                 dataLoadingProgressForm = new DataLoadProgressForm(trendAnalysisController);
                 dataLoadingProgressForm.ShowDialog();
             }
+        }
 
-            // Generate Report
-            // trendAnalysisController.GenerateWeekReport();
-            trendAnalysisController.GenerateWeekChartReport();
+        private void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            // Show the FolderBrowserDialog.
+            DialogResult result = folderBrowserDialog1.ShowDialog();
 
-            // Report Completion
-            MessageBox.Show("Report Generation Complete.", "Report message");
+            if (result == DialogResult.OK)
+            {
+                string fileDestination = folderBrowserDialog1.SelectedPath;
+                trendAnalysisController.SetFileDestination(fileDestination);
 
-            // Update TrendChart
-            UpdateTrendChartWithFirstSeriesDataSet();
-            //}            
+                string reportName = txtReportName.Text;
+                trendAnalysisController.SetReportName(reportName);
+
+                trendAnalysisController.LoadBrews();
+                LoadBrewsWithDateRange();
+
+                // Generate Report
+                trendAnalysisController.GenerateWeekReport();
+
+                // Report Completion
+                MessageBox.Show("Report Generation Complete.", "Report message");
+            }
         }
 
         private void CreateDateRangeForMonth()

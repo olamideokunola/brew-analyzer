@@ -24,7 +24,86 @@ namespace BrewingModel.Reports
             this.weekIndex = weekIndex;           
         }
 
+        //internal override void CopyParametersFromPeriod()
+        //{
+        //    startDateString = GetStartDate(period, weekIndex);
+        //    endDateString = GetEndDate(period, weekIndex);
+
+        //    startDate = DateHelper.ConvertStringToDateTime(startDateString);
+        //    endDate = DateHelper.ConvertStringToDateTime(endDateString);
+
+        //    DateTime columnDate;
+        //    string columnDateString;
+
+        //    using (xlPackage = new ExcelPackage(fileInfo))
+        //    {
+        //        XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
+        //        xlReportWorksheet = xlPackage.Workbook.Worksheets[reportWorksheet];
+
+        //        // data entry starts in 3rd column, so offset is needed
+        //        int destinationColumn = 3;
+        //        for (int column = 3; column <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Column; column++)
+        //        {
+        //            if(xlPeriod.XlBrewingFormWorksheet.Cells[2, column].Value != null)
+        //            {
+        //                columnDateString = xlPeriod.XlBrewingFormWorksheet.Cells[2, column].Value.ToString();
+        //                columnDate = DateHelper.ConvertStringToDateTime(columnDateString);
+
+        //                // Check if date is in week range before copying
+        //                if ((columnDate > startDate && columnDate < endDate) || (columnDate == startDate) || (columnDate == endDate))
+        //                {
+        //                    for (int row = 1; row <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Row; row++)
+        //                    {
+        //                        xlReportWorksheet.Cells[row, destinationColumn].Value = xlPeriod.XlBrewingFormWorksheet.Cells[row, column].Value;
+        //                    }
+        //                    destinationColumn++;
+        //                }
+        //            }
+                    
+        //        }
+        //        Byte[] bin = xlPackage.GetAsByteArray();
+        //        File.WriteAllBytes(fileInfo.FullName, bin);
+        //        //xlPackage.SaveAs(fileInfo);
+        //    }
+        //}
+
         internal override void CopyParametersFromPeriod()
+        {
+
+            //  Create new report dictionary element 
+            SortedDictionary<string, IDictionary<string, object>> brewsInDateRange = GetBrewsInDateRange();
+
+            using (xlPackage = new ExcelPackage(fileInfo))
+            {
+                XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
+                xlReportWorksheet = xlPackage.Workbook.Worksheets[reportWorksheet];
+
+                // Get each column starting from column 3 of the report template
+                int column = 3;
+                foreach (KeyValuePair<string, IDictionary<string, object>> reportColumn in brewsInDateRange)
+                {
+                    IDictionary<string, object> columnData = reportColumn.Value;
+                    int row = 2;
+                    foreach (KeyValuePair<string, object> dataItem in columnData)
+                    {
+                        xlReportWorksheet.Cells[row, column].Value = dataItem.Value;
+                        row++;
+                    }
+                    column++;
+                }
+
+
+                //write the file to the disk
+
+                SaveWorkSheet(xlPackage);
+
+                // Byte[] bin = xlPackage.GetAsByteArray();
+                // File.WriteAllBytes(fileInfo.FullName, bin);
+
+            }
+        }
+
+        private SortedDictionary<string, IDictionary<string, object>> GetBrewsInDateRange()
         {
             startDateString = GetStartDate(period, weekIndex);
             endDateString = GetEndDate(period, weekIndex);
@@ -34,39 +113,65 @@ namespace BrewingModel.Reports
 
             DateTime columnDate;
             string columnDateString;
+            string columnBrewNumber;
+            string columnKey;
 
-            using (xlPackage = new ExcelPackage(fileInfo))
+            XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
+
+            SortedDictionary<string, IDictionary<string, object>> reportData = new SortedDictionary<string, IDictionary<string, object>>();
+
+            // data entry starts in 3rd column, so offset is needed
+            for (int column = 3; column <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Column; column++)
             {
-                XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
-                xlReportWorksheet = xlPackage.Workbook.Worksheets[reportWorksheet];
-
-                // data entry starts in 3rd column, so offset is needed
-                int destinationColumn = 3;
-                for (int column = 3; column <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Column; column++)
+                if (xlPeriod.XlBrewingFormWorksheet.Cells[2, column].Value != null)
                 {
-                    if(xlPeriod.XlBrewingFormWorksheet.Cells[2, column].Value != null)
-                    {
-                        columnDateString = xlPeriod.XlBrewingFormWorksheet.Cells[2, column].Value.ToString();
-                        columnDate = DateHelper.ConvertStringToDateTime(columnDateString);
+                    columnDateString = xlPeriod.XlBrewingFormWorksheet.Cells[2, column].Value.ToString();
+                    columnDate = DateHelper.ConvertStringToDateTime(columnDateString);
+                    columnBrewNumber = xlPeriod.XlBrewingFormWorksheet.Cells[4, column].Value.ToString();
+                    columnKey = columnDateString + "-" + columnBrewNumber;
 
-                        // Check if date is in week range before copying
-                        if ((columnDate > startDate && columnDate < endDate) || (columnDate == startDate) || (columnDate == endDate))
+                    IDictionary<string, object> columnElements = new Dictionary<string, object>();
+
+                    // Check if date is in week range before copying
+                    if ((columnDate > startDate && columnDate < endDate) || (columnDate == startDate) || (columnDate == endDate))
+                    {
+                        columnElements = new Dictionary<string, object>();
+
+                        for (int row = 2; row <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Row; row++)
                         {
-                            for (int row = 1; row <= xlPeriod.XlBrewingFormWorksheet.Dimension.End.Row; row++)
+                            if(xlPeriod.XlBrewingFormWorksheet.Cells[row, 2].Value != null)
                             {
-                                xlReportWorksheet.Cells[row, destinationColumn].Value = xlPeriod.XlBrewingFormWorksheet.Cells[row, column].Value;
+                                string paramName;
+                                object paramValue;
+
+                                paramName = xlPeriod.XlBrewingFormWorksheet.Cells[row, 2].Value.ToString();
+                                paramValue = xlPeriod.XlBrewingFormWorksheet.Cells[row, column].Value;
+                                columnElements.Add(paramName, paramValue);
                             }
-                            destinationColumn++;
+                            
                         }
+
+                        reportData.Add(columnKey, columnElements);
                     }
                     
                 }
-                Byte[] bin = xlPackage.GetAsByteArray();
-                File.WriteAllBytes(fileInfo.FullName, bin);
-                //xlPackage.SaveAs(fileInfo);
             }
+            return reportData;
         }
 
+
+        private void SaveWorkSheet(ExcelPackage xlPackage)
+        {
+            using (xlPackage)
+            {
+                Byte[] bin = xlPackage.GetAsByteArray();
+
+                FileInfo file = fileInfo;
+                File.WriteAllBytes(file.FullName, bin);
+                //xlPackage.SaveAs(file);
+                //return file.FullName;
+            }
+        }
 
         private string GetEndDate(Period period, int weekIndex)
         {
