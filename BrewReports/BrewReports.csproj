@@ -31,11 +31,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="EPPlus, Version=4.5.3.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.3.1\lib\net35\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Spire.Common, Version=2.2.12.61020, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSpire.XLS.9.2.1\lib\net20\Spire.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.License, Version=1.3.7.20, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSpire.XLS.9.2.1\lib\net20\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=5.2.8.19020, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSpire.XLS.9.2.1\lib\net20\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.XLS, Version=9.2.12.61020, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSpire.XLS.9.2.1\lib\net20\Spire.XLS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -55,12 +68,15 @@
     <Compile Include="Datasources\XlDatasource.cs" />
     <Compile Include="Datasources\XlPeriod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\EpXlWeekReportWorker.cs" />
+    <Compile Include="Reports\IxlWeekReportWorker.cs" />
     <Compile Include="Reports\MsChartReport.cs" />
     <Compile Include="Reports\MsChartReportGenerator.cs" />
     <Compile Include="Reports\MsChartWeekReport.cs" />
     <Compile Include="Reports\Report.cs" />
     <Compile Include="Reports\ReportGenerator.cs" />
     <Compile Include="Reports\ReportHelper.cs" />
+    <Compile Include="Reports\SlxlWeekReportWorker.cs" />
     <Compile Include="Reports\XlReport.cs" />
     <Compile Include="Reports\XlReportGenerator.cs" />
     <Compile Include="Reports\XlWeekReport.cs" />
@@ -76,6 +92,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,6 +5,7 @@ using BrewingModel.Datasources;
 using BrewingModel.Settings;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
+using Spire.Xls;
 
 namespace BrewingModel.Reports
 {
@@ -18,7 +19,7 @@ namespace BrewingModel.Reports
         internal ExcelWorksheet xlReportWorksheet;
         ExcelWorksheet xlBrewingFormWorksheet;
 
-        private FileInfo template;
+        internal FileInfo template;
         internal FileInfo fileInfo;
         //private DirectoryInfo directoryInfo;
 
@@ -53,13 +54,22 @@ namespace BrewingModel.Reports
             CopyParametersFromPeriod();
         }
 
+        // Epplus Version
+        //private void CreateReportWorkSheet()
+        //{
+        //    using (xlPackage = new ExcelPackage(template, true))
+        //    {
+        //        xlPackage.SaveAs(fileInfo);
+        //        xlReportWorksheet = xlPackage.Workbook.Worksheets[reportWorksheet];
+        //    }
+        //}
+
+
+
+        // FreeSpire version
         private void CreateReportWorkSheet()
         {
-            using (xlPackage = new ExcelPackage(template, true))
-            {
-                xlPackage.SaveAs(fileInfo);
-                xlReportWorksheet = xlPackage.Workbook.Worksheets[reportWorksheet];
-            }
+            
         }
 
         internal virtual void CopyParametersFromPeriod()

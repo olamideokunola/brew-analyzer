@@ -2,13 +2,13 @@
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Util;
 using System.IO;
+using Spire.Xls;
+using System.Globalization;
 
 namespace BrewingModel.Reports
-{ 
+{
     public class XlWeekReport : XlReport
     {
         string startDateString;
@@ -59,7 +59,7 @@ namespace BrewingModel.Reports
         //                    destinationColumn++;
         //                }
         //            }
-                    
+
         //        }
         //        Byte[] bin = xlPackage.GetAsByteArray();
         //        File.WriteAllBytes(fileInfo.FullName, bin);
@@ -67,41 +67,137 @@ namespace BrewingModel.Reports
         //    }
         //}
 
+        // EPPlus Version
+        //internal override void CopyParametersFromPeriod()
+        //{
+
+        //    //  Create new report dictionary element 
+        //    SortedDictionary<string, IDictionary<string, object>> brewsInDateRange = GetBrewsInDateRange();
+
+        //    using (xlPackage = new ExcelPackage(fileInfo))
+        //    {
+        //        XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
+        //        xlReportWorksheet = xlPackage.Workbook.Worksheets[reportWorksheet];
+
+        //        // Get each column starting from column 3 of the report template
+        //        int column = 3;
+        //        foreach (KeyValuePair<string, IDictionary<string, object>> reportColumn in brewsInDateRange)
+        //        {
+        //            IDictionary<string, object> columnData = reportColumn.Value;
+        //            int row = 2;
+        //            foreach (KeyValuePair<string, object> dataItem in columnData)
+        //            {
+        //                xlReportWorksheet.Cells[row, column].Value = dataItem.Value;
+        //                row++;
+        //            }
+        //            column++;
+        //        }
+
+        //        SaveWorkSheet(xlPackage);
+        //    }
+        //}
+
+        // SpreadsheetLight version
+        //internal override void CopyParametersFromPeriod()
+        //{
+
+        //    //  Create new report dictionary element 
+        //    SortedDictionary<string, IDictionary<string, object>> brewsInDateRange = GetBrewsInDateRange();
+
+        //    using (SLDocument xlReportWorksheet = new SLDocument(fileInfo.FullName))
+        //    {
+
+        //        XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
+
+        //        // Get each column starting from column 3 of the report template
+        //        int column = 3;
+        //        foreach (KeyValuePair<string, IDictionary<string, object>> reportColumn in brewsInDateRange)
+        //        {
+        //            IDictionary<string, object> columnData = reportColumn.Value;
+        //            int row = 2;
+        //            foreach (KeyValuePair<string, object> dataItem in columnData)
+        //            {
+        //                xlReportWorksheet.SelectWorksheet(reportWorksheet);
+        //                //xlReportWorksheet.SetCellValue(row, column, dataItem.Value.ToString());
+        //                row++;
+        //            }
+        //            column++;
+        //        }
+
+        //        xlReportWorksheet.Save();
+        //    }
+        //}
+
+        // FreeSpire version
         internal override void CopyParametersFromPeriod()
         {
+
+            // Open template
+            Workbook xlReportWorkbook = new Workbook();
+            FileStream fileStream = File.OpenRead(template.FullName);
+            fileStream.Seek(0, SeekOrigin.Begin);
+            xlReportWorkbook.LoadFromStream(fileStream);
+
+            // Save in new location
+            // xlReportWorkbook.SaveToFile(fileInfo.FullName, ExcelVersion.Version2016);
+            Worksheet xlReportWorksheet = xlReportWorkbook.Worksheets[reportWorksheet];
+
+            ////  Create workbook
+            //Workbook xlReportWorkbook = new Workbook();
+            //FileStream fileStream = File.OpenRead(fileInfo.FullName);
+            //fileStream.Seek(0, SeekOrigin.Begin);
+            //xlReportWorkbook.LoadFromStream(fileStream);
+            
+            //Worksheet xlReportWorksheet = xlReportWorkbook.Worksheets[0];
 
             //  Create new report dictionary element 
             SortedDictionary<string, IDictionary<string, object>> brewsInDateRange = GetBrewsInDateRange();
 
-            using (xlPackage = new ExcelPackage(fileInfo))
+            XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
+
+            // Get each column starting from column 3 of the report template
+            CultureInfo invC = CultureInfo.InvariantCulture;
+            StringDateWorker stringDateWorker = StringDateWorker.GetInstance();
+
+            int column = 3;
+            foreach (KeyValuePair<string, IDictionary<string, object>> reportColumn in brewsInDateRange)
             {
-                XlPeriod xlPeriod = (BrewingModel.Datasources.XlPeriod)period;
-                xlReportWorksheet = xlPackage.Workbook.Worksheets[reportWorksheet];
-
-                // Get each column starting from column 3 of the report template
-                int column = 3;
-                foreach (KeyValuePair<string, IDictionary<string, object>> reportColumn in brewsInDateRange)
+                IDictionary<string, object> columnData = reportColumn.Value;
+                int row = 2;
+                foreach (KeyValuePair<string, object> dataItem in columnData)
                 {
-                    IDictionary<string, object> columnData = reportColumn.Value;
-                    int row = 2;
-                    foreach (KeyValuePair<string, object> dataItem in columnData)
+                    // Date Row
+                    if (row == 2 && xlReportWorksheet.Range[row, column].Value != null)
                     {
-                        xlReportWorksheet.Cells[row, column].Value = dataItem.Value;
-                        row++;
+                        try
+                        {
+                            // dd/mm/yyyy
+                            xlReportWorksheet.Range[row, column].DateTimeValue = DateTime.ParseExact(dataItem.Value.ToString(), "dd/mm/yyyy", invC);
+                        }
+                        catch (System.FormatException e) when (e.Data != null)
+                        {
+                            // dd.mmm.yyyy
+                            xlReportWorksheet.Range[row, column].DateTimeValue = DateTime.ParseExact(dataItem.Value.ToString(), "dd.mmm.yyyy", invC);
+                        }
                     }
-                    column++;
+                    // Brew Number Row.  Brew number is a three digit number
+                    else if (row == 4 && xlReportWorksheet.Range[row, column].Value != null)
+                    {
+                        xlReportWorksheet.Range[row, column].Text = stringDateWorker.GetThreeDigitNumber(dataItem.Value.ToString());
+                    }
+                    else
+                    {
+                        xlReportWorksheet.Range[row, column].Value = dataItem.Value.ToString();
+                    }
+                    row++;
                 }
-
-
-                //write the file to the disk
-
-                SaveWorkSheet(xlPackage);
-
-                // Byte[] bin = xlPackage.GetAsByteArray();
-                // File.WriteAllBytes(fileInfo.FullName, bin);
-
+                column++;
             }
+            xlReportWorksheet.Activate();
+            xlReportWorkbook.SaveToFile(fileInfo.FullName, ExcelVersion.Version2016);
+            fileStream.Dispose();
         }
+
 
         private SortedDictionary<string, IDictionary<string, object>> GetBrewsInDateRange()
         {

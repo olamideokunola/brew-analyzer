@@ -85,5 +85,22 @@ namespace Util
             }
             return numberStr;
         }
+
+        public string GetThreeDigitNumber(string number)
+        {
+            int numberInt = int.Parse(number);
+            string numberStr = numberInt.ToString();
+
+            if (numberInt < 10)
+            {
+                numberStr = "00" + numberStr;
+            }
+            else if (numberInt > 10 && numberInt < 100)
+            {
+                numberStr = "0" + numberStr;
+            }
+
+            return numberStr;
+        }
     }
 }
